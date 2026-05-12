@@ -14,9 +14,9 @@
     --bg-secondary: #141414;
     --text-main: #FFFFFF;
     --text-muted: rgba(255, 255, 255, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-blur: 20px;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-blur: 25px;
     --hero-glow-1: rgba(175, 255, 0, 0.08);
     --hero-glow-2: rgba(175, 255, 0, 0.04);
 }
@@ -25,12 +25,12 @@
     --bg-main: #F4F4F4;
     --bg-secondary: #EBEBEB;
     --text-main: #121212;
-    --text-muted: #666666;
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(0, 0, 0, 0.08);
+    --text-muted: #555555;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.4);
     --glass-text: #121212;
-    --glass-blur: 15px;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    --glass-blur: 30px;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     --primary-glow: rgba(175, 255, 0, 0.3);
     --hero-glow-1: rgba(175, 255, 0, 0.18);
     --hero-glow-2: rgba(175, 255, 0, 0.12);
@@ -347,20 +347,20 @@ nav.nav-hidden {
     position: absolute;
     bottom: -10px;
     left: -20px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 1.2rem 2rem;
-    border-radius: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    padding: 1.2rem 2.2rem;
+    border-radius: 24px;
     display: flex;
-    gap: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    gap: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 [data-theme="light"] .hero-stats {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
 }
 
 .stat-item h4 {
