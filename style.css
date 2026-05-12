@@ -344,26 +344,32 @@ nav.nav-hidden {
 }
 
 .hero-stats {
-    margin-top: 4rem;
+    position: absolute;
+    bottom: -10px;
+    left: -20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    padding: 1.2rem 2rem;
+    border-radius: 20px;
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
+    box-shadow: var(--shadow);
 }
 
 .stat-item h4 {
     color: var(--primary);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    margin-bottom: 0.2rem;
-    line-height: 1;
+    margin-bottom: 0.1rem;
 }
 
 .stat-item p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-bottom: 0;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 600;
 }
 
 .btn-group {
