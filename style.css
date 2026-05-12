@@ -26,8 +26,8 @@
     --bg-secondary: #EBEBEB;
     --text-main: #121212;
     --text-muted: #666666;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(0, 0, 0, 0.08);
     --glass-text: #121212;
     --glass-blur: 15px;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
