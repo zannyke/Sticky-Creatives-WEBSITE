@@ -14,9 +14,9 @@
     --bg-secondary: #141414;
     --text-main: #FFFFFF;
     --text-muted: rgba(255, 255, 255, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-blur: 25px;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-blur: 40px;
     --hero-glow-1: rgba(175, 255, 0, 0.08);
     --hero-glow-2: rgba(175, 255, 0, 0.04);
 }
@@ -26,10 +26,10 @@
     --bg-secondary: #EBEBEB;
     --text-main: #121212;
     --text-muted: #555555;
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.6);
     --glass-text: #121212;
-    --glass-blur: 25px;
+    --glass-blur: 40px;
     --shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     --primary-glow: rgba(175, 255, 0, 0.3);
     --hero-glow-1: rgba(175, 255, 0, 0.18);
@@ -348,21 +348,21 @@ nav.nav-hidden {
     bottom: -10px;
     left: -20px;
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border);
-    padding: 1.2rem 2.2rem;
-    border-radius: 24px;
+    padding: 1.5rem 2.5rem;
+    border-radius: 30px;
     display: flex;
-    gap: 2.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
-                inset 0 0 15px rgba(255, 255, 255, 0.3);
+    gap: 3rem;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="light"] .hero-stats {
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(255, 255, 255, 1);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1),
-                inset 0 0 20px rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .stat-item h4 {
