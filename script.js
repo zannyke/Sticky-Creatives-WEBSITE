@@ -94,7 +94,36 @@ document.querySelectorAll('.animate').forEach(el => {
     observer.observe(el);
 });
 
-// Smooth Scroll for Nav Links
+// Contact Form Handler
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+        const message = document.getElementById('user-message').value;
+        
+        const selectedServices = [];
+        document.querySelectorAll('input[name="service"]:checked').forEach(cb => {
+            selectedServices.push(cb.value);
+        });
+        
+        const servicesText = selectedServices.length > 0 ? selectedServices.join(', ') : 'No specific service selected';
+        
+        const subject = encodeURIComponent(`New Project Inquiry from ${name}`);
+        const body = encodeURIComponent(
+            `Name: ${name}\n` +
+            `Email: ${email}\n` +
+            `Services Interested: ${servicesText}\n\n` +
+            `Message:\n${message}`
+        );
+        
+        const mailtoLink = `mailto:samwuelkaranja6991@gmail.com?subject=${subject}&body=${body}`;
+        
+        window.location.href = mailtoLink;
+    });
+}// Smooth Scroll for Nav Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();

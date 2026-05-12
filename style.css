@@ -425,6 +425,42 @@ section {
     box-shadow: 0 15px 30px rgba(175, 255, 0, 0.4);
 }
 
+/* Form Styles */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 0.8rem 1.2rem;
+    background: var(--bg-main);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.checkbox-container:hover {
+    border-color: var(--primary);
+    background: rgba(175, 255, 0, 0.05);
+}
+
+.checkbox-container input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-container input[type="checkbox"]:checked + span {
+    color: var(--text-main);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(175, 255, 0, 0.1);
+}
+
 /* Footer */
 footer {
     background: var(--secondary);
