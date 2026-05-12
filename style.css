@@ -26,8 +26,8 @@
     --bg-secondary: #EBEBEB;
     --text-main: #121212;
     --text-muted: #666666;
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.1);
     --glass-text: #121212;
     --glass-blur: 15px;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
@@ -125,7 +125,7 @@ nav {
     top: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0.6rem 0;
+    padding: 1.2rem 0;
     transition: top 0.4s ease, padding 0.4s ease;
 }
 
@@ -146,13 +146,13 @@ nav.nav-hidden {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
-    padding: 0.5rem 1.5rem;
+    padding: 0.8rem 2.5rem;
     border-radius: 100px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
 }
 
 .logo img {
