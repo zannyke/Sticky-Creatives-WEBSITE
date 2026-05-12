@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
 
 :root {
-    --primary: #FFB800;
-    --primary-dark: #E6A600;
+    --primary: #AFFF00;
+    --primary-dark: #8ED000;
     --secondary: #0A0A0A;
     --text-light: #F5F5F5;
     --text-dark: #1A1A1A;
     --gray: #2A2A2A;
     --light-gray: #F0F0F0;
     --white: #FFFFFF;
-    --gradient: linear-gradient(135deg, #FFB800 0%, #FF8A00 100%);
+    --gradient: linear-gradient(135deg, #AFFF00 0%, #7ED321 100%);
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -147,7 +147,7 @@ nav.scrolled {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 70% 30%, rgba(255, 184, 0, 0.15) 0%, transparent 50%);
+    background: radial-gradient(circle at 70% 30%, rgba(175, 255, 0, 0.15) 0%, transparent 50%);
     z-index: 0;
 }
 
