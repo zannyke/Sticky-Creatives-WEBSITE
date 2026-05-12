@@ -31,9 +31,9 @@
     --glass-text: #121212;
     --glass-blur: 40px;
     --shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    --primary-glow: rgba(175, 255, 0, 0.3);
-    --hero-glow-1: rgba(175, 255, 0, 0.18);
-    --hero-glow-2: rgba(175, 255, 0, 0.12);
+    --primary-glow: rgba(175, 255, 0, 0.4);
+    --hero-glow-1: rgba(175, 255, 0, 0.35); /* Increased for visibility */
+    --hero-glow-2: rgba(175, 255, 0, 0.25); /* Increased for visibility */
 }
 
 [data-theme="dark"] {
