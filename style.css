@@ -347,38 +347,33 @@ nav.nav-hidden {
     position: absolute;
     bottom: -10px;
     left: -20px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    border: 1px solid var(--glass-border);
-    padding: 1.5rem 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(50px) saturate(200%);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    padding: 1.5rem 2.8rem;
     border-radius: 30px;
     display: flex;
-    gap: 3rem;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="light"] .hero-stats {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1),
-                inset 0 0 30px rgba(255, 255, 255, 0.3);
+    gap: 3.5rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    z-index: 10;
 }
 
 .stat-item h4 {
-    color: var(--primary);
-    font-size: 1.6rem;
+    color: var(--primary); /* Keep lime accent */
+    font-size: 1.8rem;
     font-weight: 800;
     margin-bottom: 0.1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .stat-item p {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     margin-bottom: 0;
-    color: var(--text-muted);
+    color: #FFFFFF; /* Hardcoded white for contrast on image */
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
+    letter-spacing: 2px;
+    font-weight: 700;
+    opacity: 0.9;
 }
 
 .btn-group {
