@@ -38,9 +38,9 @@ window.addEventListener('scroll', () => {
     
     // Smooth padding transition
     if (scrollTop > 50) {
-        navbar.style.padding = '0.5rem 0';
+        navbar.style.padding = '0.3rem 0';
     } else {
-        navbar.style.padding = '1rem 0';
+        navbar.style.padding = '0.6rem 0';
     }
     
     lastScrollTop = scrollTop;
