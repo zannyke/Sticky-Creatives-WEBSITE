@@ -75,9 +75,10 @@ body {
 
 /* Layout */
 .container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 5%;
+    width: 100%;
 }
 
 section {
@@ -209,9 +210,13 @@ nav.nav-hidden {
 
 /* Page Header */
 .page-header {
-    padding: 120px 0 60px;
+    padding: 160px 0 80px;
     background: #000000;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-header h1 {
@@ -257,7 +262,7 @@ nav.nav-hidden {
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 6rem;
     align-items: center;
     position: relative;
     z-index: 1;
@@ -422,8 +427,9 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 0;
+    padding: 1.4rem 0;
     border-bottom: 1px solid var(--glass-border);
+    gap: 15px;
 }
 
 .price-tag {
@@ -500,9 +506,10 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
-    margin-bottom: 40px;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 5rem;
+    margin-bottom: 60px;
+    align-items: start;
 }
 
 .footer-logo img {
