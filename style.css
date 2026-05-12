@@ -225,6 +225,17 @@ nav.nav-hidden {
     color: var(--primary);
 }
 
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: var(--transition);
+}
+
 /* Page Header */
 .page-header {
     padding: 180px 0 100px;
@@ -698,8 +709,37 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
     .nav-links {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--bg-secondary);
+        backdrop-filter: blur(20px);
+        padding: 100px 40px;
+        gap: 2rem;
+        transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        align-items: flex-start;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--glass-border);
     }
 
     .nav-glass {
