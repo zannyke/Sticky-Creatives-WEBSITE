@@ -270,11 +270,17 @@ nav.nav-hidden {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
+    grid-template-columns: 1.1fr 0.9fr; /* Give text a bit more space */
+    gap: 4rem;
+    align-items: center; /* Ensures vertical centering */
     position: relative;
     z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-right: 2rem;
 }
 
 .hero h1 {
@@ -303,10 +309,17 @@ nav.nav-hidden {
     align-items: center;
 }
 
+.hero-image {
+    display: flex;
+    justify-content: flex-end; /* Push image to the right */
+    align-items: center;
+}
+
 .hero-image img {
     width: 100%;
+    max-width: 550px; /* Prevent it from getting too huge */
     border-radius: 20px;
-    filter: drop-shadow(0 0 30px rgba(175, 255, 0, 0.2));
+    filter: drop-shadow(0 0 30px rgba(175, 255, 0, 0.15));
     animation: float 6s ease-in-out infinite;
     object-fit: contain;
 }
@@ -373,13 +386,13 @@ section {
 
 .badge {
     display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    padding: 0.6rem 1.2rem;
+    background: rgba(175, 255, 0, 0.1);
     color: var(--primary);
-    border-radius: 100px;
-    font-weight: 600;
-    font-size: 0.8rem;
+    border: 1px solid var(--primary);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 2px;
