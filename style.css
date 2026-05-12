@@ -158,7 +158,7 @@ nav.nav-hidden {
 
 .nav-links {
     display: flex;
-    gap: clamp(1rem, 2vw, 1.8rem);
+    gap: clamp(1.5rem, 4vw, 3rem);
     list-style: none;
     align-items: center;
 }
@@ -198,7 +198,7 @@ nav.nav-hidden {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     justify-content: flex-end;
 }
 
@@ -742,7 +742,7 @@ footer {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 2rem;
         padding: 1.5rem;
         border-radius: 20px;
     }
