@@ -162,7 +162,7 @@ nav.nav-hidden {
 
 .nav-links {
     display: flex;
-    gap: 1.8rem;
+    gap: clamp(1rem, 2vw, 1.8rem);
     list-style: none;
     align-items: center;
 }
@@ -278,9 +278,9 @@ nav.nav-hidden {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr; /* Give text a bit more space */
-    gap: 4rem;
-    align-items: center; /* Ensures vertical centering */
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: center;
     position: relative;
     z-index: 1;
 }
@@ -408,8 +408,8 @@ section {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
     align-items: stretch;
 }
 
@@ -623,13 +623,23 @@ footer {
 }
 
 /* Responsive Polish */
+@media (max-width: 1300px) {
+    .nav-links {
+        gap: 1.2rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+}
+
 @media (max-width: 1200px) {
     .container {
         padding: 0 40px;
     }
     
-    .hero-grid {
-        gap: 3rem;
+    .hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
     }
 }
 
