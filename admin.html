@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Sticky Creatives</title>
+    <link rel="icon" type="image/png" href="sticky-icon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-main);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            padding: 4rem;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        }
+
+        .login-card .logo {
+            margin-bottom: 2rem;
+        }
+
+        .login-card .logo img {
+            height: 50px;
+        }
+
+        .login-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .login-form .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--bg-main);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            color: var(--text-main);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .login-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(175, 255, 0, 0.1);
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .login-bg-mesh {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 30% 30%, var(--hero-glow-1) 0%, transparent 70%),
+                        radial-gradient(circle at 70% 70%, var(--hero-glow-2) 0%, transparent 70%);
+            filter: blur(120px);
+            z-index: 0;
+            animation: rotateMesh 40s linear infinite;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="login-page">
+        <div class="login-bg-mesh"></div>
+        
+        <div class="login-card animate visible">
+            <div class="logo">
+                <img src="sticky-icon.png" alt="Sticky Creatives Logo">
+            </div>
+            <h2>Admin Portal</h2>
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="admin-id" placeholder="Enter Admin ID" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="admin-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn login-btn">Secure Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('admin-id').value;
+            const pass = document.getElementById('admin-password').value;
+
+            // Mock login validation
+            if (id === 'admin' && pass === 'sticky2026') {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                alert('Invalid Credentials. Access Denied.');
+            }
+        });
+    </script>
+</body>
+</html>

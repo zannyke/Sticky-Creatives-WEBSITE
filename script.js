@@ -46,6 +46,21 @@ window.addEventListener('scroll', () => {
     lastScrollTop = scrollTop;
 });
 
+// Inquiry Registration System (Mock Backend for Admin)
+function registerInquiry(type, name, email, details) {
+    const inquiries = JSON.parse(localStorage.getItem('sticky_inquiries') || '[]');
+    const newInquiry = {
+        id: Date.now(),
+        type: type, // 'Email' or 'WhatsApp'
+        name: name || 'Anonymous',
+        email: email || 'N/A',
+        details: details || 'No details provided',
+        time: new Date().toLocaleString()
+    };
+    inquiries.unshift(newInquiry);
+    localStorage.setItem('sticky_inquiries', JSON.stringify(inquiries.slice(0, 50))); // Keep last 50
+}
+
 // Service Card Booking Logic
 const serviceCards = document.querySelectorAll('.service-card');
 const bookingSection = document.getElementById('booking');
@@ -65,6 +80,11 @@ serviceCards.forEach(card => {
         // Update WhatsApp Link
         const message = encodeURIComponent(`Hi Sticky Creatives! I'm interested in your ${service} services. Let's discuss!`);
         whatsappBtn.href = `https://wa.me/254723973677?text=${message}`;
+        
+        // Register WhatsApp Inquiry
+        whatsappBtn.onclick = () => {
+            registerInquiry('WhatsApp', 'Potential Client', 'N/A', `Interested in ${service}`);
+        };
         
         // Scroll to booking section
         window.scrollTo({
@@ -111,19 +131,23 @@ if (contactForm) {
         
         const servicesText = selectedServices.length > 0 ? selectedServices.join(', ') : 'No specific service selected';
         
+        // Register Email Inquiry
+        registerInquiry('Email', name, email, `Message: ${message} | Services: ${servicesText}`);
+
         const subject = encodeURIComponent(`New Project Inquiry from ${name}`);
-        const body = encodeURIComponent(
+        const bodyText = encodeURIComponent(
             `Name: ${name}\n` +
             `Email: ${email}\n` +
             `Services Interested: ${servicesText}\n\n` +
             `Message:\n${message}`
         );
         
-        const mailtoLink = `mailto:samwuelkaranja6991@gmail.com?subject=${subject}&body=${body}`;
+        const mailtoLink = `mailto:samwuelkaranja6991@gmail.com?subject=${subject}&body=${bodyText}`;
         
         window.location.href = mailtoLink;
     });
-}// Mobile Menu Toggle
+}
+// Mobile Menu Toggle
 const menuBtn = document.getElementById('menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
