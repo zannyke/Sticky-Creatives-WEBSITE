@@ -17,6 +17,8 @@
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-blur: 20px;
+    --hero-glow-1: rgba(175, 255, 0, 0.08);
+    --hero-glow-2: rgba(175, 255, 0, 0.04);
 }
 
 [data-theme="light"] {
@@ -30,6 +32,8 @@
     --glass-blur: 15px;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     --primary-glow: rgba(175, 255, 0, 0.3);
+    --hero-glow-1: rgba(175, 255, 0, 0.18);
+    --hero-glow-2: rgba(175, 255, 0, 0.12);
 }
 
 [data-theme="dark"] {
@@ -43,6 +47,8 @@
     --glass-blur: 20px;
     --shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
     --primary-glow: rgba(175, 255, 0, 0.2);
+    --hero-glow-1: rgba(175, 255, 0, 0.1);
+    --hero-glow-2: rgba(175, 255, 0, 0.05);
 }
 
 * {
@@ -259,8 +265,8 @@ nav.nav-hidden {
     position: absolute;
     width: 150%;
     height: 150%;
-    background: radial-gradient(circle at 70% 30%, rgba(175, 255, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 20% 70%, rgba(175, 255, 0, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 70% 30%, var(--hero-glow-1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 70%, var(--hero-glow-2) 0%, transparent 50%);
     z-index: 0;
     animation: rotateMesh 20s linear infinite;
 }
