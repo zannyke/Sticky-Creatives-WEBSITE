@@ -158,6 +158,16 @@ nav.nav-hidden {
     opacity: 0.8;
 }
 
+.nav-links a.active {
+    color: var(--primary);
+    opacity: 1;
+}
+
+.nav-links a.active i {
+    opacity: 1;
+    color: var(--primary);
+}
+
 .nav-links a i {
     font-size: 0.8rem;
     margin-right: 6px;
@@ -195,6 +205,26 @@ nav.nav-hidden {
 #theme-toggle:hover {
     background: var(--glass-bg);
     color: var(--primary);
+}
+
+/* Page Header */
+.page-header {
+    padding: 120px 0 60px;
+    background: #000000;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.page-header p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* Hero Section */

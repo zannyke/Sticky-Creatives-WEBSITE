@@ -13,20 +13,20 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="nav-glass">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <img src="logo.png" alt="Sticky Creatives Logo" id="brand-logo">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#portfolio"><i class="fas fa-th-large"></i> Portfolio</a></li>
-                    <li><a href="#services"><i class="fas fa-layer-group"></i> Services</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="portfolio.html"><i class="fas fa-th-large"></i> Portfolio</a></li>
+                    <li><a href="services.html"><i class="fas fa-layer-group"></i> Services</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="nav-actions">
                     <button id="theme-toggle" title="Toggle Theme">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <a href="#get-started" class="btn" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">Get Started</a>
+                    <a href="services.html#get-started" class="btn" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">Get Started</a>
                 </div>
             </div>
         </div>
@@ -40,14 +40,14 @@
                     <h1 class="animate">Designs that <span style="color: var(--primary);">stick.</span><br>Brands that last.</h1>
                     <p class="animate">We blend artistic vision with strategic thinking to create high-impact designs that help your brand leave a lasting impression.</p>
                     <div class="hero-actions animate">
-                        <a href="#get-started" class="btn">Get Started</a>
-                        <a href="#portfolio" class="btn-secondary">
+                        <a href="services.html#get-started" class="btn">Get Started</a>
+                        <a href="portfolio.html" class="btn-secondary">
                             View Portfolio <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
                 <div class="hero-image animate">
-                    <img src="hero-visual.png" alt="Sticky Creatives Abstract Visual">
+                    <img src="hero-main.jpg" alt="Sticky Creatives Branding">
                     <div class="hero-stats">
                         <div class="stat-item">
                             <h4>500+</h4>
@@ -63,19 +63,22 @@
         </div>
     </section>
 
-    <section id="portfolio" style="background: var(--light-gray);">
+    <section id="featured-preview" style="background: var(--bg-secondary);">
         <div class="container">
-            <h2 class="section-title animate">Featured <span>Work</span></h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+                <h2 class="section-title animate" style="margin-bottom: 0; text-align: left;">Featured <span>Work</span></h2>
+                <a href="portfolio.html" class="btn-secondary animate">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
             <div class="pricing-grid">
                 <div class="category-card animate" style="padding: 0; overflow: hidden;">
-                    <img src="branding.png" alt="Branding Mockup" style="width: 100%; height: 250px; object-fit: cover;">
+                    <img src="branding.png" alt="Branding" style="width: 100%; height: 250px; object-fit: cover;">
                     <div style="padding: 1.5rem;">
                         <h3>Corporate Branding</h3>
-                        <p>Complete identity systems that resonate.</p>
+                        <p>Resonating identity systems.</p>
                     </div>
                 </div>
                 <div class="category-card animate" style="padding: 0; overflow: hidden;">
-                    <img src="web.png" alt="Web Design Mockup" style="width: 100%; height: 250px; object-fit: cover;">
+                    <img src="web.png" alt="Web" style="width: 100%; height: 250px; object-fit: cover;">
                     <div style="padding: 1.5rem;">
                         <h3>Web Experiences</h3>
                         <p>Digital platforms built for conversion.</p>
@@ -85,235 +88,13 @@
         </div>
     </section>
 
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title animate">Our <span>Services</span></h2>
-            <div class="pricing-grid">
-                
-                <!-- Logo Design -->
-                <div class="category-card animate service-card" data-service="Logo Design">
-                    <h3><i class="fas fa-bezier-curve"></i> Logo Design</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Basic Logo</span>
-                            <span class="details">(1 concept)</span>
-                        </div>
-                        <span class="price-tag">KES 1,500</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Standard Logo</span>
-                            <span class="details">(2-3 concepts + revisions)</span>
-                        </div>
-                        <span class="price-tag">KES 3,000</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Premium Logo</span>
-                            <span class="details">(Full brand style + mockups)</span>
-                        </div>
-                        <span class="price-tag">KES 5,500</span>
-                    </div>
-                </div>
-
-                <!-- Poster & Flyer -->
-                <div class="category-card animate service-card" data-service="Poster & Flyer Design">
-                    <h3><i class="fas fa-swatchbook"></i> Poster & Flyer</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Simple Poster</span>
-                        </div>
-                        <span class="price-tag">KES 800</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Standard Poster</span>
-                        </div>
-                        <span class="price-tag">KES 1,500</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Premium Poster</span>
-                            <span class="details">(High-end, detailed)</span>
-                        </div>
-                        <span class="price-tag">KES 2,500</span>
-                    </div>
-                </div>
-
-                <!-- Social Media -->
-                <div class="category-card animate service-card" data-service="Social Media Designs">
-                    <h3><i class="fas fa-share-nodes"></i> Social Media</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Single Post</span>
-                        </div>
-                        <span class="price-tag">KES 500</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">5 Posts Bundle</span>
-                        </div>
-                        <span class="price-tag">KES 2,000</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">10 Posts Bundle</span>
-                        </div>
-                        <span class="price-tag">KES 3,500</span>
-                    </div>
-                </div>
-
-                <!-- Business Branding -->
-                <div class="category-card animate service-card" data-service="Business Branding">
-                    <h3><i class="fas fa-gem"></i> Business Branding</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Business Card Design</span>
-                        </div>
-                        <span class="price-tag">KES 700</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Letterhead Design</span>
-                        </div>
-                        <span class="price-tag">KES 800</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Full Branding Kit</span>
-                            <span class="details">(Logo, card, letterhead)</span>
-                        </div>
-                        <span class="price-tag">KES 6,000</span>
-                    </div>
-                </div>
-
-                <!-- Web Design -->
-                <div class="category-card animate service-card" data-service="Web Design">
-                    <h3><i class="fas fa-code"></i> Web Design</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Simple Website</span>
-                            <span class="details">(1-3 pages)</span>
-                        </div>
-                        <span class="price-tag">KES 8,000</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Business Website</span>
-                            <span class="details">(4-6 pages)</span>
-                        </div>
-                        <span class="price-tag">KES 15,000</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">E-commerce Website</span>
-                        </div>
-                        <span class="price-tag">From KES 25,000+</span>
-                    </div>
-                </div>
-
-                <!-- Extra Services -->
-                <div class="category-card animate service-card" data-service="Extra Services">
-                    <h3><i class="fas fa-star"></i> Extra Services</h3>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Logo Redesign</span>
-                        </div>
-                        <span class="price-tag">From KES 2,000+</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Image Editing / Retouch</span>
-                        </div>
-                        <span class="price-tag">From KES 300+</span>
-                    </div>
-                    <div class="price-item">
-                        <div class="item-info">
-                            <span class="name">Urgent Delivery (24hrs)</span>
-                        </div>
-                        <span class="price-tag">+KES 500</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="booking" style="display: none; background: var(--bg-secondary);">
-        <div class="container">
-            <h2 class="section-title">Book <span>Service</span></h2>
-            <div class="category-card" style="max-width: 800px; margin: 0 auto;">
-                <h3 id="selected-service-title">Service Name</h3>
-                <p style="margin-bottom: 2rem;">Please choose your preferred contact method to proceed with your order for <strong id="selected-service-name"></strong>.</p>
-                
-                <div class="pricing-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <a href="#" id="whatsapp-btn" class="btn" style="background: #25D366; color: white; text-align: center;">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="mailto:samwuelkaranja6991@gmail.com" class="btn" style="background: #EA4335; color: white; text-align: center;">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
-                    <a href="tel:0723973677" class="btn" style="background: #4285F4; color: white; text-align: center;">
-                        <i class="fas fa-phone"></i> Call
-                    </a>
-                </div>
-                <button class="btn" onclick="document.getElementById('booking').style.display='none'" style="margin-top: 2rem; background: var(--glass-border); color: var(--text-main); width: 100%;">Cancel</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="get-started" style="background: var(--bg-main);">
-        <div class="container">
-            <h2 class="section-title animate">Get <span>Started</span></h2>
-            <div class="category-card animate" style="max-width: 800px; margin: 0 auto;">
-                <form id="contact-form">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Your Name</label>
-                            <input type="text" id="user-name" placeholder="Enter your name" required 
-                                style="width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: inherit;">
-                        </div>
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Your Email</label>
-                            <input type="email" id="user-email" placeholder="Enter your email" required 
-                                style="width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: inherit;">
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 2rem;">
-                        <label style="display: block; margin-bottom: 1.2rem; font-weight: 600;">Select Services (Multiple Choice)</label>
-                        <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Logo Design"> Logo Design
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Web Design"> Web Design
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Social Media"> Social Media
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Poster & Flyer"> Poster & Flyer
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Branding"> Branding
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="service" value="Other"> Other
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 2rem;">
-                        <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Your Message</label>
-                        <textarea id="user-message" placeholder="Tell us about your project..." rows="5" required 
-                            style="width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: inherit; resize: vertical;"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem; padding: 1.2rem;">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
+    <section id="cta-landing">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title animate">Ready to <span>Grow?</span></h2>
+            <p class="animate" style="max-width: 600px; margin: 0 auto 2rem;">Explore our services and let's build something amazing together.</p>
+            <div class="hero-actions animate" style="justify-content: center;">
+                <a href="services.html" class="btn">Our Services</a>
+                <a href="services.html#get-started" class="btn-secondary">Start a Project</a>
             </div>
         </div>
     </section>
@@ -322,7 +103,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h2 style="color: var(--primary); margin-bottom: 1rem;">Sticky <span style="color: var(--white);">Creatives</span></h2>
+                    <h2>Sticky <span>Creatives</span></h2>
                     <p>Quality design. Creative impact. Results that last.</p>
                 </div>
                 <div class="contact-info">
