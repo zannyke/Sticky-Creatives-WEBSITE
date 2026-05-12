@@ -748,35 +748,44 @@ footer {
     .hero-image {
         order: 4;
         justify-content: center;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem; /* More room for stats */
+        position: relative;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .hero-actions {
         order: 5;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
+        gap: 1.5rem; /* Increased gap */
     }
 
     .hero-image img {
-        max-width: 85%; /* Reduced size to fit better */
+        max-width: 280px; /* Scaled down for mobile balance */
         margin: 0 auto;
+        border-radius: 20px;
     }
 
     .hero-stats {
-        position: relative;
-        bottom: 0;
-        left: 0;
-        margin-top: 2rem;
-        width: 100%;
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 240px; /* Floating look */
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        border-radius: 20px;
-        background: var(--glass-bg); /* Restored background */
+        justify-content: space-around;
+        padding: 1rem;
+        border-radius: 18px;
+        background: var(--glass-bg);
         backdrop-filter: blur(10px);
         border: 1px solid var(--glass-border);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 5;
+    }
+
+    .stat-item {
+        text-align: center;
     }
 
     .stat-item h4 {
@@ -877,7 +886,8 @@ footer {
     .hero-actions {
         flex-direction: column;
         width: 100%;
-        gap: 1.2rem;
+        gap: 1.8rem; /* Maximized separation */
+        margin: 2rem 0;
     }
 
     .hero-actions .btn, .hero-actions .btn-secondary {
