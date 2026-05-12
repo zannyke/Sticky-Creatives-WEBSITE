@@ -889,17 +889,22 @@ footer {
     .hero-actions {
         flex-direction: column;
         width: 100%;
-        gap: 2rem; /* Even larger gap for absolute separation */
-        margin: 2.5rem 0;
+        gap: 2.5rem; /* Massive gap to ensure separation */
+        margin: 3rem 0;
     }
 
     .hero-actions .btn, .hero-actions .btn-secondary {
-        width: 90%; /* Slightly narrower to avoid screen edges */
+        width: 85%; /* Slightly narrower */
         margin: 0 auto;
-        padding: 0.8rem 2rem; /* Reduced size */
-        font-size: 0.75rem; /* Reduced font size */
+        padding: 0.85rem 2rem;
+        font-size: 0.75rem;
         text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border to define shape */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* More contained shadow */
+    }
+
+    .hero-actions .btn:first-child {
+        margin-bottom: 0.5rem; /* Additional buffer */
     }
 
     .hero-actions .btn-secondary {
