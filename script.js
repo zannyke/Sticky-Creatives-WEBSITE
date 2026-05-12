@@ -142,7 +142,7 @@ if (contactForm) {
             `Message:\n${message}`
         );
         
-        const mailtoLink = `mailto:samwuelkaranja6991@gmail.com?subject=${subject}&body=${bodyText}`;
+        const mailtoLink = `mailto:stickycreatives254@gmail.com?subject=${subject}&body=${bodyText}`;
         
         window.location.href = mailtoLink;
     });
