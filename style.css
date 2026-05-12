@@ -349,6 +349,7 @@ nav.nav-hidden {
     left: -25px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
     backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
     border: 1px solid rgba(255, 255, 255, 0.5);
     padding: 1.8rem 3rem;
     border-radius: 32px;
@@ -357,7 +358,8 @@ nav.nav-hidden {
     box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.4),
                 inset 0 0 25px rgba(255, 255, 255, 0.2);
     z-index: 10;
-    overflow: hidden;
+    will-change: transform, opacity, backdrop-filter;
+    transform: translateZ(0);
 }
 
 /* Add a gloss reflection */
@@ -371,6 +373,7 @@ nav.nav-hidden {
     background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.1) 50%, transparent 55%);
     transform: rotate(30deg);
     pointer-events: none;
+    border-radius: inherit;
 }
 
 .stat-item h4 {
