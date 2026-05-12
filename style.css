@@ -238,7 +238,7 @@ nav.nav-hidden {
 
 /* Page Header */
 .page-header {
-    padding: 180px 0 100px;
+    padding: 220px 0 100px;
     background: var(--bg-main);
     text-align: center;
     display: flex;
@@ -268,7 +268,7 @@ nav.nav-hidden {
     background: var(--bg-main);
     position: relative;
     overflow: hidden;
-    padding-top: 60px;
+    padding-top: 140px;
 }
 
 .hero::before {
@@ -795,7 +795,7 @@ footer {
     }
 
     .hero {
-        padding-top: 100px;
+        padding-top: 130px;
     }
 
     .hero h1 {
