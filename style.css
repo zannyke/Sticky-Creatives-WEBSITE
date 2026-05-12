@@ -711,6 +711,21 @@ footer {
         max-width: 450px;
     }
 
+    .hero-stats {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        margin-top: 3rem;
+        width: 100%;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .stat-item h4 {
+        font-size: 1.2rem;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -830,5 +845,18 @@ footer {
 
     .section-title {
         font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 0 25px;
+    }
+
+    .category-card {
+        padding: 2rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 0.8rem;
     }
 }

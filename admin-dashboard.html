@@ -164,11 +164,17 @@
             height: 300px !important;
         }
 
-        /* Table Styles */
+        .admin-table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 15px;
+        }
+
         .admin-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
+            min-width: 600px;
         }
 
         .admin-table th {
@@ -242,8 +248,34 @@
         @media (max-width: 992px) {
             .sidebar { width: 80px; padding: 1.5rem 1rem; }
             .sidebar .logo span, .nav-link span { display: none; }
-            .main-content { margin-left: 80px; }
+            .main-content { margin-left: 80px; padding: 2rem; }
             .charts-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                position: fixed; 
+                bottom: 0; 
+                top: auto;
+                flex-direction: row;
+                padding: 0.5rem;
+                justify-content: space-around;
+                border-right: none;
+                border-top: 1px solid var(--glass-border);
+                background: rgba(20, 20, 20, 0.95);
+                backdrop-filter: blur(20px);
+            }
+            .sidebar .logo { display: none; }
+            .nav-menu { display: flex; width: 100%; justify-content: space-around; }
+            .nav-item { margin-bottom: 0; }
+            .nav-link { padding: 0.8rem; flex-direction: column; gap: 5px; font-size: 0.6rem; }
+            .nav-link i { font-size: 1.1rem; }
+            .logout-btn { display: none; }
+            .main-content { margin-left: 0; margin-bottom: 80px; padding: 1.5rem; }
+            .dashboard-header h1 { font-size: 1.5rem; }
+            .stat-card .stat-value { font-size: 2rem; }
         }
     </style>
 </head>
@@ -326,33 +358,35 @@
 
             <div class="admin-card">
                 <h3 style="margin-bottom: 2rem;">Recent Works</h3>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Project Name</th>
-                            <th>Category</th>
-                            <th>Date Added</th>
-                            <th>Visibility</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Modern Branding Kit</td>
-                            <td>Branding</td>
-                            <td>May 10, 2026</td>
-                            <td><span style="color: var(--primary);">Public</span></td>
-                            <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
-                        </tr>
-                        <tr>
-                            <td>E-commerce Visuals</td>
-                            <td>Web Design</td>
-                            <td>May 05, 2026</td>
-                            <td><span style="color: var(--primary);">Public</span></td>
-                            <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Category</th>
+                                <th>Date Added</th>
+                                <th>Visibility</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Modern Branding Kit</td>
+                                <td>Branding</td>
+                                <td>May 10, 2026</td>
+                                <td><span style="color: var(--primary);">Public</span></td>
+                                <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
+                            </tr>
+                            <tr>
+                                <td>E-commerce Visuals</td>
+                                <td>Web Design</td>
+                                <td>May 05, 2026</td>
+                                <td><span style="color: var(--primary);">Public</span></td>
+                                <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -363,33 +397,35 @@
             </div>
 
             <div class="admin-card">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Customer Name</th>
-                            <th>Channel</th>
-                            <th>Inquiry Type</th>
-                            <th>Message Preview</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>John Kamau</td>
-                            <td><span class="badge-type type-whatsapp">WhatsApp</span></td>
-                            <td>Logo Design</td>
-                            <td>"Hi, I need a new logo for my startup..."</td>
-                            <td>2 hrs ago</td>
-                        </tr>
-                        <tr>
-                            <td>Sarah Wanjiru</td>
-                            <td><span class="badge-type type-email">Email</span></td>
-                            <td>Business Branding</td>
-                            <td>"Interested in a full branding package..."</td>
-                            <td>5 hrs ago</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Channel</th>
+                                <th>Inquiry Type</th>
+                                <th>Message Preview</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Kamau</td>
+                                <td><span class="badge-type type-whatsapp">WhatsApp</span></td>
+                                <td>Logo Design</td>
+                                <td>"Hi, I need a new logo for my startup..."</td>
+                                <td>2 hrs ago</td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Wanjiru</td>
+                                <td><span class="badge-type type-email">Email</span></td>
+                                <td>Business Branding</td>
+                                <td>"Interested in a full branding package..."</td>
+                                <td>5 hrs ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
