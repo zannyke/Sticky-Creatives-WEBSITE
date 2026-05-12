@@ -769,14 +769,14 @@ footer {
 
     .hero-stats {
         position: absolute;
-        bottom: -30px;
+        bottom: -25px;
         left: 50%;
         transform: translateX(-50%);
-        width: 240px; /* Floating look */
+        width: 210px; /* Reduced to match smaller image */
         display: flex;
         justify-content: space-around;
-        padding: 1rem;
-        border-radius: 18px;
+        padding: 0.8rem;
+        border-radius: 15px;
         background: var(--glass-bg);
         backdrop-filter: blur(10px);
         border: 1px solid var(--glass-border);
@@ -784,12 +784,15 @@ footer {
         z-index: 5;
     }
 
-    .stat-item {
-        text-align: center;
+    .stat-item h4 {
+        font-size: 1rem; /* Smaller font */
+        margin-bottom: 2px;
     }
 
-    .stat-item h4 {
-        font-size: 1.2rem;
+    .stat-item p {
+        font-size: 0.65rem; /* Smaller text */
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .footer-content {
@@ -886,13 +889,21 @@ footer {
     .hero-actions {
         flex-direction: column;
         width: 100%;
-        gap: 1.8rem; /* Maximized separation */
-        margin: 2rem 0;
+        gap: 2rem; /* Even larger gap for absolute separation */
+        margin: 2.5rem 0;
     }
 
     .hero-actions .btn, .hero-actions .btn-secondary {
-        width: 100%;
+        width: 90%; /* Slightly narrower to avoid screen edges */
+        margin: 0 auto;
+        padding: 0.8rem 2rem; /* Reduced size */
+        font-size: 0.75rem; /* Reduced font size */
         text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border to define shape */
+    }
+
+    .hero-actions .btn-secondary {
+        border: 1px solid var(--glass-border); /* More defined border */
     }
 
     .pricing-grid {
