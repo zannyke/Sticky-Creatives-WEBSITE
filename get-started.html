@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | Sticky Creatives</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] .input-group input, 
+        [data-theme="light"] .input-group textarea {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--primary);
+            background: rgba(175, 255, 0, 0.05);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(175, 255, 0, 0.1);
+        }
+
+        .services-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .service-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .service-box {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .service-option input:checked + .service-box {
+            background: rgba(175, 255, 0, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(175, 255, 0, 0.1);
+        }
+
+        .service-box i {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .service-option input:checked + .service-box i {
+            opacity: 1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-glass">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="Sticky Creatives Logo" id="brand-logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="portfolio.html"><i class="fas fa-th-large"></i> Portfolio</a></li>
+                    <li><a href="services.html"><i class="fas fa-layer-group"></i> Services</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="get-started.html" class="btn active" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="animate">Start Your <span>Project</span></h1>
+            <p class="animate">Tell us about your vision and let's make it a reality. Fill out the form below to get started.</p>
+        </div>
+    </header>
+
+    <section id="contact-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="form-card animate">
+                <form id="contact-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" id="user-name" placeholder="John Doe" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" id="user-email" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label>What services do you need?</label>
+                    </div>
+                    <div class="services-selection">
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Logo Design">
+                            <div class="service-box">
+                                <i class="fas fa-bezier-curve"></i> Logo Design
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Web Design">
+                            <div class="service-box">
+                                <i class="fas fa-code"></i> Web Design
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Social Media">
+                            <div class="service-box">
+                                <i class="fas fa-share-nodes"></i> Social Media
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Poster & Flyer">
+                            <div class="service-box">
+                                <i class="fas fa-swatchbook"></i> Poster & Flyer
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Branding">
+                            <div class="service-box">
+                                <i class="fas fa-gem"></i> Branding
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="Other">
+                            <div class="service-box">
+                                <i class="fas fa-plus"></i> Other
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 3rem;">
+                        <label>Your Project Brief</label>
+                        <textarea id="user-message" placeholder="Describe your project, goals, and any specific requirements..." rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>Sticky <span>Creatives</span></h2>
+                    <p>Quality design. Creative impact. Results that last.</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> 0723973677</p>
+                    <p><i class="fas fa-envelope"></i> samwuelkaranja6991@gmail.com</p>
+                </div>
+                <div class="socials">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Sticky Creatives. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
