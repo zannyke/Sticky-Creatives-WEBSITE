@@ -23,13 +23,13 @@
     --bg-secondary: #EBEBEB;
     --text-main: #121212;
     --text-muted: #555555;
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.85); /* More opaque for visibility */
+    --glass-border: rgba(0, 0, 0, 0.05);
     --glass-text: #121212;
     --glass-blur: 40px;
     --primary-glow: rgba(175, 255, 0, 0.4);
     --hero-glow-1: rgba(175, 255, 0, 0.35);
-    --hero-glow-2: rgba(255, 255, 255, 0.8); /* Changed to White, high visibility */
+    --hero-glow-2: rgba(255, 255, 255, 0.9); /* Changed to White, high visibility */
 }
 
 [data-theme="dark"] {
@@ -198,19 +198,26 @@ nav.nav-hidden {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.2rem; /* Increased spacing */
     justify-content: flex-end;
+}
+
+@media (max-width: 480px) {
+    .nav-actions {
+        gap: 0.8rem;
+    }
 }
 
 /* Nav CTA Pill */
 .nav-actions .btn {
     border-radius: 100px;
-    padding: 0.7rem 1.8rem;
+    padding: 0.6rem 1.4rem; /* Slightly more compact for header */
     font-size: 0.75rem;
     background: var(--primary);
     color: #000;
     box-shadow: 0 0 20px rgba(175, 255, 0, 0.3);
     border: none;
+    white-space: nowrap;
 }
 
 .nav-actions .btn:hover {
@@ -523,19 +530,20 @@ section {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 1.1rem 2.8rem;
+    padding: 1rem 2.5rem;
     background: linear-gradient(135deg, var(--primary) 0%, #d4ff00 100%);
     color: #000000;
     text-decoration: none;
     border-radius: 100px;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
+    font-size: 0.8rem;
+    letter-spacing: 1.2px;
     transition: var(--transition);
     border: none;
     cursor: pointer;
     box-shadow: 0 8px 25px rgba(175, 255, 0, 0.25);
+    white-space: nowrap;
 }
 
 .btn:hover {
@@ -549,17 +557,18 @@ section {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 1.1rem 2.8rem;
+    padding: 1rem 2.5rem;
     background: transparent;
     color: var(--text-main);
     border: 2px solid var(--glass-border);
     border-radius: 100px;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
+    font-size: 0.8rem;
+    letter-spacing: 1.2px;
     transition: var(--transition);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .btn-secondary:hover {
@@ -748,7 +757,7 @@ footer {
     }
 
     .hero-image img {
-        max-width: 100%;
+        max-width: 85%; /* Reduced size to fit better */
         margin: 0 auto;
     }
 
@@ -756,14 +765,18 @@ footer {
         position: relative;
         bottom: 0;
         left: 0;
-        margin-top: 3rem;
+        margin-top: 2rem;
         width: 100%;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: 1.5rem;
         padding: 1.5rem;
         border-radius: 20px;
+        background: var(--glass-bg); /* Restored background */
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .stat-item h4 {
@@ -798,18 +811,22 @@ footer {
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        height: 100vh;
+        top: 80px; /* Below header */
+        right: -300px;
+        width: 260px;
+        height: auto;
+        max-height: calc(100vh - 100px);
         background: var(--bg-secondary);
         backdrop-filter: blur(20px);
-        padding: 100px 40px;
-        gap: 2rem;
+        padding: 40px 30px;
+        gap: 1.2rem;
         transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.2);
         z-index: 1000;
         align-items: flex-start;
+        border-radius: 24px; /* Floating rounded look */
+        border: 1px solid var(--glass-border);
+        margin-right: 20px; /* Pop out from edge */
     }
 
     .nav-links.active {
