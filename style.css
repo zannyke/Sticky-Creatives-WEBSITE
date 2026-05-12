@@ -14,11 +14,8 @@
     --bg-secondary: #141414;
     --text-main: #FFFFFF;
     --text-muted: rgba(255, 255, 255, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-blur: 40px;
     --hero-glow-1: rgba(175, 255, 0, 0.08);
-    --hero-glow-2: rgba(175, 255, 0, 0.04);
+    --hero-glow-2: rgba(255, 255, 255, 0.05); /* Changed to White */
 }
 
 [data-theme="light"] {
@@ -30,10 +27,9 @@
     --glass-border: rgba(255, 255, 255, 0.6);
     --glass-text: #121212;
     --glass-blur: 40px;
-    --shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     --primary-glow: rgba(175, 255, 0, 0.4);
-    --hero-glow-1: rgba(175, 255, 0, 0.35); /* Increased for visibility */
-    --hero-glow-2: rgba(175, 255, 0, 0.25); /* Increased for visibility */
+    --hero-glow-1: rgba(175, 255, 0, 0.35);
+    --hero-glow-2: rgba(255, 255, 255, 0.8); /* Changed to White, high visibility */
 }
 
 [data-theme="dark"] {
@@ -45,10 +41,9 @@
     --glass-border: rgba(255, 255, 255, 0.06);
     --glass-text: #FFFFFF;
     --glass-blur: 20px;
-    --shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
     --primary-glow: rgba(175, 255, 0, 0.2);
     --hero-glow-1: rgba(175, 255, 0, 0.1);
-    --hero-glow-2: rgba(175, 255, 0, 0.05);
+    --hero-glow-2: rgba(255, 255, 255, 0.08); /* Changed to White */
 }
 
 * {
