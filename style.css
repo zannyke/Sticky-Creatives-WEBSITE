@@ -20,7 +20,9 @@
 
 [data-theme="light"] {
     --bg-main: #F4F4F4;
+    --bg-main-rgb: 244, 244, 244;
     --bg-secondary: #EBEBEB;
+    --bg-secondary-rgb: 235, 235, 235;
     --text-main: #121212;
     --text-muted: #555555;
     --glass-bg: rgba(255, 255, 255, 0.85); /* More opaque for visibility */
@@ -34,7 +36,9 @@
 
 [data-theme="dark"] {
     --bg-main: #0A0A0A;
+    --bg-main-rgb: 10, 10, 10;
     --bg-secondary: #121212;
+    --bg-secondary-rgb: 18, 18, 18;
     --text-main: #FFFFFF;
     --text-muted: #888888;
     --glass-bg: rgba(255, 255, 255, 0.03);

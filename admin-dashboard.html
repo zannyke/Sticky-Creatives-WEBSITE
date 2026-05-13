@@ -7,47 +7,79 @@
     <link rel="icon" type="image/png" href="sticky-icon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --sidebar-width: 280px;
+            --topbar-height: 80px;
+            --sidebar-bg: var(--bg-secondary);
+            --content-bg: var(--bg-main);
+            --card-bg: var(--glass-bg);
+            --accent: var(--primary);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             display: flex;
-            background: var(--bg-main);
+            background: var(--content-bg);
             min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
 
         /* Sidebar Styles */
         .sidebar {
             width: var(--sidebar-width);
-            background: var(--bg-secondary);
+            background: var(--sidebar-bg);
             border-right: 1px solid var(--glass-border);
             height: 100vh;
             position: fixed;
-            padding: 2rem;
+            left: 0;
+            top: 0;
             display: flex;
             flex-direction: column;
-            z-index: 100;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            padding: 1.5rem;
         }
 
-        .sidebar .logo {
-            margin-bottom: 3rem;
+        .sidebar-header {
+            padding: 1rem 0.5rem 3rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .sidebar .logo img {
+        .sidebar-header img {
             height: 35px;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
         }
 
-        .sidebar .logo span {
+        .sidebar-header span {
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 1.1rem;
+            background: linear-gradient(to right, var(--text-main), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-menu {
@@ -56,334 +88,608 @@
         }
 
         .nav-item {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.2rem;
             color: var(--text-muted);
             text-decoration: none;
-            border-radius: 15px;
-            transition: var(--transition);
-            font-weight: 600;
+            border-radius: 16px;
+            transition: var(--transition-smooth);
+            font-weight: 500;
             cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        .nav-link:hover, .nav-link.active {
-            background: var(--glass-bg);
-            color: var(--primary);
-            border: 1px solid var(--glass-border);
+        .nav-link:hover {
+            background: rgba(175, 255, 0, 0.05);
+            color: var(--text-main);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(175, 255, 0, 0.2);
         }
 
         .nav-link i {
             font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
         }
 
-        .logout-btn {
+        .sidebar-footer {
             margin-top: auto;
-            color: #ff4d4d;
-            border-color: rgba(255, 77, 77, 0.2);
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
         }
 
-        /* Main Content */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 800;
+        }
+
+        .user-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .user-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Top Bar */
+        .topbar {
+            height: var(--topbar-height);
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            background: rgba(var(--bg-main-rgb, 10, 10, 10), 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            z-index: 999;
+            transition: var(--transition-smooth);
+        }
+
+        .search-bar {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.7rem 1.5rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 350px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .icon-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg-secondary);
+        }
+
+        /* Main Content Area */
         .main-content {
             margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
             flex-grow: 1;
             padding: 3rem;
-            max-width: 1400px;
+            max-width: 1600px;
+            width: calc(100% - var(--sidebar-width));
         }
 
         .view-section {
             display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .view-section.active {
             display: block;
         }
 
-        .dashboard-header {
-            margin-bottom: 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .section-header {
+            margin-bottom: 2.5rem;
         }
 
-        .dashboard-header h1 {
+        .section-header h1 {
             font-size: 2.2rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* Stats Grid */
+        .section-header p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Dashboard Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .admin-card {
-            background: var(--glass-bg);
+        .stat-card {
+            background: var(--card-bg);
             backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border);
             padding: 2rem;
-            border-radius: 25px;
-            box-shadow: var(--shadow);
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
         }
 
-        .stat-card .stat-value {
-            font-size: 2.5rem;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(175, 255, 0, 0.03);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: rgba(175, 255, 0, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
             font-weight: 800;
-            color: var(--primary);
-            margin: 0.5rem 0;
+            margin-bottom: 0.5rem;
         }
 
-        .stat-card .stat-label {
+        .stat-label {
             color: var(--text-muted);
+            font-weight: 600;
             text-transform: uppercase;
             font-size: 0.75rem;
             letter-spacing: 1.5px;
-            font-weight: 700;
         }
 
-        /* Charts Container */
-        .charts-container {
+        .stat-trend {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trend-up { color: #25D366; }
+        .trend-down { color: #ff4d4d; }
+
+        /* Charts Section */
+        .charts-grid {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
         .chart-card {
-            min-height: 400px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 28px;
         }
 
-        canvas {
-            width: 100% !important;
-            height: 300px !important;
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
         }
 
-        .admin-table-container {
+        /* Tables */
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .data-table-wrapper {
             width: 100%;
             overflow-x: auto;
-            border-radius: 15px;
         }
 
-        .admin-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
-            min-width: 600px;
         }
 
-        .admin-table th {
+        .data-table th {
             text-align: left;
             padding: 1.2rem;
-            color: var(--text-muted);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.7rem;
             letter-spacing: 1px;
+            color: var(--text-muted);
             border-bottom: 1px solid var(--glass-border);
         }
 
-        .admin-table td {
+        .data-table td {
             padding: 1.2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             font-size: 0.9rem;
         }
 
-        .badge-type {
-            padding: 4px 12px;
-            border-radius: 8px;
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 100px;
             font-size: 0.75rem;
             font-weight: 700;
         }
 
-        .type-whatsapp { background: rgba(37, 211, 102, 0.1); color: #25D366; }
-        .type-email { background: rgba(234, 67, 53, 0.1); color: #EA4335; }
+        .badge-success { background: rgba(37, 211, 102, 0.1); color: #25D366; }
+        .badge-warning { background: rgba(255, 193, 7, 0.1); color: #FFC107; }
+        .badge-danger { background: rgba(255, 77, 77, 0.1); color: #FF4D4D; }
 
-        /* Form Styles */
-        .admin-form .form-group {
-            margin-bottom: 1.5rem;
+        /* Actions */
+        .action-btns {
+            display: flex;
+            gap: 10px;
         }
 
-        .admin-form label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .admin-form input, .admin-form select, .admin-form textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--bg-main);
+        .btn-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--text-main);
-            font-family: inherit;
-        }
-
-        .project-preview {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed var(--glass-border);
-            border-radius: 15px;
+            background: transparent;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
 
-        .project-preview:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+        .btn-icon:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(175, 255, 0, 0.05);
         }
 
-        @media (max-width: 992px) {
-            .sidebar { width: 80px; padding: 1.5rem 1rem; }
-            .sidebar .logo span, .nav-link span { display: none; }
-            .main-content { margin-left: 80px; padding: 2rem; }
-            .charts-container { grid-template-columns: 1fr; }
+        .btn-icon.delete:hover {
+            border-color: #ff4d4d;
+            color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.05);
         }
 
-        @media (max-width: 650px) {
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sidebar { width: 80px; padding: 1.5rem 0.8rem; }
+            .sidebar-header span, .nav-link span, .user-info, .sidebar-footer span { display: none; }
+            .sidebar-header { justify-content: center; padding: 1rem 0 3rem; }
+            .nav-link { justify-content: center; padding: 1rem; }
+            .user-profile { justify-content: center; padding: 0.8rem; }
+            .topbar { left: 80px; padding: 0 1.5rem; }
+            .main-content { margin-left: 80px; padding: 2rem; width: calc(100% - 80px); }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
             .sidebar { 
                 width: 100%; 
                 height: auto; 
-                position: fixed; 
+                top: auto; 
                 bottom: 0; 
-                top: auto;
-                flex-direction: row;
+                flex-direction: row; 
                 padding: 0.5rem;
-                justify-content: space-around;
                 border-right: none;
                 border-top: 1px solid var(--glass-border);
-                background: rgba(20, 20, 20, 0.95);
+                background: rgba(var(--bg-secondary-rgb, 20, 20, 20), 0.95);
                 backdrop-filter: blur(20px);
             }
-            .sidebar .logo { display: none; }
+            .sidebar-header, .sidebar-footer { display: none; }
             .nav-menu { display: flex; width: 100%; justify-content: space-around; }
             .nav-item { margin-bottom: 0; }
-            .nav-link { padding: 0.8rem; flex-direction: column; gap: 5px; font-size: 0.6rem; }
-            .nav-link i { font-size: 1.1rem; }
-            .logout-btn { display: none; }
-            .main-content { margin-left: 0; margin-bottom: 80px; padding: 1.5rem; }
-            .dashboard-header h1 { font-size: 1.5rem; }
-            .stat-card .stat-value { font-size: 2rem; }
+            .nav-link { flex-direction: column; gap: 4px; font-size: 0.65rem; padding: 0.6rem; }
+            .topbar { left: 0; padding: 0 1rem; }
+            .search-bar { display: none; }
+            .main-content { margin-left: 0; margin-bottom: 80px; padding: 1.5rem; width: 100%; }
+        }
+
+        /* Theme Toggle specific */
+        [data-theme="light"] {
+            --bg-main-rgb: 244, 244, 244;
+            --bg-secondary-rgb: 235, 235, 235;
+        }
+        [data-theme="dark"] {
+            --bg-main-rgb: 10, 10, 10;
+            --bg-secondary-rgb: 18, 18, 18;
         }
     </style>
 </head>
 <body data-theme="dark">
 
     <aside class="sidebar">
-        <div class="logo">
-            <img src="sticky-icon.png" alt="Sticky Creatives Logo">
+        <div class="sidebar-header">
+            <img src="sticky-icon.png" alt="Logo">
             <span>Sticky Admin</span>
         </div>
+        
         <nav class="nav-menu">
             <div class="nav-item">
                 <a class="nav-link active" onclick="showView('dashboard')">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Dashboard</span>
+                    <i class="fas fa-grid-2"></i>
+                    <span>Overview</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a class="nav-link" onclick="showView('projects')">
-                    <i class="fas fa-folder-open"></i>
-                    <span>Manage Projects</span>
+                    <i class="fas fa-rocket"></i>
+                    <span>Portfolio</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a class="nav-link" onclick="showView('inquiries')">
-                    <i class="fas fa-envelope-open-text"></i>
+                    <i class="fas fa-comment-alt-lines"></i>
                     <span>Inquiries</span>
                 </a>
             </div>
+            <div class="nav-item">
+                <a class="nav-link" onclick="showView('analytics')">
+                    <i class="fas fa-chart-mixed"></i>
+                    <span>Analytics</span>
+                </a>
+            </div>
         </nav>
-        <a href="admin.html" class="nav-link logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Log Out</span>
-        </a>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">AD</div>
+                <div class="user-info">
+                    <h4>Admin User</h4>
+                    <p>Super Admin</p>
+                </div>
+            </div>
+            <a href="admin.html" class="nav-link" style="color: #ff4d4d;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
     </aside>
 
+    <header class="topbar">
+        <div class="search-bar">
+            <i class="fas fa-search" style="color: var(--text-muted);"></i>
+            <input type="text" placeholder="Search analytics, inquiries...">
+        </div>
+
+        <div class="topbar-actions">
+            <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button class="icon-btn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot"></span>
+            </button>
+            <button class="icon-btn" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+
     <main class="main-content">
-        <!-- Dashboard View -->
+        <!-- Dashboard Overview -->
         <section id="dashboard-view" class="view-section active">
-            <div class="dashboard-header">
-                <h1>Performance Overview</h1>
+            <div class="section-header">
+                <h1>Performance Hub</h1>
+                <p>Welcome back! Here's what's happening with Sticky Creatives today.</p>
             </div>
 
             <div class="stats-grid">
-                <div class="admin-card stat-card">
-                    <span class="stat-label">Total Website Visitors</span>
-                    <div class="stat-value">12,482</div>
-                    <span style="color: var(--primary); font-size: 0.8rem;"><i class="fas fa-arrow-up"></i> +15% this month</span>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-label">Total Visitors</div>
+                    <div class="stat-value">24.8k</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 12.5% vs last month
+                    </div>
                 </div>
-                <div class="admin-card stat-card">
-                    <span class="stat-label">Project Inquiries</span>
-                    <div class="stat-value">48</div>
-                    <span style="color: var(--primary); font-size: 0.8rem;"><i class="fas fa-arrow-up"></i> +8% this week</span>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="stat-label">New Inquiries</div>
+                    <div class="stat-value">52</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 8.2% vs last week
+                    </div>
                 </div>
-                <div class="admin-card stat-card">
-                    <span class="stat-label">Conversion Rate</span>
-                    <div class="stat-value">3.2%</div>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">Target: 5.0%</span>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="stat-label">Active Projects</div>
+                    <div class="stat-value">14</div>
+                    <div class="stat-trend">
+                        <span style="color: var(--text-muted);">4 completed recently</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="stat-label">Conv. Rate</div>
+                    <div class="stat-value">4.2%</div>
+                    <div class="stat-trend trend-down">
+                        <i class="fas fa-arrow-down"></i> 0.5% vs last month
+                    </div>
                 </div>
             </div>
 
-            <div class="charts-container">
-                <div class="admin-card chart-card">
-                    <h3 style="margin-bottom: 1.5rem;">Traffic Analysis (Daily/Weekly)</h3>
-                    <canvas id="trafficChart"></canvas>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Traffic Insights</h3>
+                        <select class="btn-icon" style="width: auto; padding: 0 15px; font-size: 0.8rem;">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                        </select>
+                    </div>
+                    <canvas id="trafficChart" style="height: 350px !important;"></canvas>
                 </div>
-                <div class="admin-card chart-card">
-                    <h3 style="margin-bottom: 1.5rem;">Device Distribution</h3>
-                    <canvas id="deviceChart"></canvas>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Device Flow</h3>
+                    </div>
+                    <canvas id="deviceChart" style="height: 350px !important;"></canvas>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>Recent Inquiries</h3>
+                    <button class="btn" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="showView('inquiries')">View All</button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="recent-inquiries-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
 
         <!-- Projects View -->
         <section id="projects-view" class="view-section">
-            <div class="dashboard-header">
-                <h1>Manage Portfolio</h1>
-                <button class="btn" style="padding: 0.8rem 1.5rem;" onclick="document.getElementById('add-project-modal').style.display='block'">Add New Project</button>
+            <div class="section-header">
+                <h1>Portfolio Management</h1>
+                <p>Add, edit or remove projects from the live website.</p>
             </div>
-
-            <div class="admin-card">
-                <h3 style="margin-bottom: 2rem;">Recent Works</h3>
-                <div class="admin-table-container">
-                    <table class="admin-table">
+            
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="search-bar" style="width: 300px; display: flex;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Filter projects...">
+                    </div>
+                    <button class="btn" onclick="document.getElementById('add-project-modal').style.display='flex'">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="projects-table">
                         <thead>
                             <tr>
                                 <th>Project Name</th>
                                 <th>Category</th>
-                                <th>Date Added</th>
-                                <th>Visibility</th>
-                                <th>Action</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Modern Branding Kit</td>
-                                <td>Branding</td>
-                                <td>May 10, 2026</td>
-                                <td><span style="color: var(--primary);">Public</span></td>
-                                <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
-                            </tr>
-                            <tr>
-                                <td>E-commerce Visuals</td>
-                                <td>Web Design</td>
-                                <td>May 05, 2026</td>
-                                <td><span style="color: var(--primary);">Public</span></td>
-                                <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
-                            </tr>
+                            <!-- Dynamic Content -->
                         </tbody>
                     </table>
                 </div>
@@ -392,168 +698,291 @@
 
         <!-- Inquiries View -->
         <section id="inquiries-view" class="view-section">
-            <div class="dashboard-header">
-                <h1>Contact Inquiries</h1>
+            <div class="section-header">
+                <h1>Customer Inquiries</h1>
+                <p>Manage lead flow and communication channels.</p>
             </div>
-
-            <div class="admin-card">
-                <div class="admin-table-container">
-                    <table class="admin-table">
+            
+            <div class="table-card">
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="all-inquiries-table">
                         <thead>
                             <tr>
-                                <th>Customer Name</th>
+                                <th>Client Name</th>
                                 <th>Channel</th>
-                                <th>Inquiry Type</th>
+                                <th>Project Type</th>
                                 <th>Message Preview</th>
-                                <th>Time</th>
+                                <th>Received</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>John Kamau</td>
-                                <td><span class="badge-type type-whatsapp">WhatsApp</span></td>
-                                <td>Logo Design</td>
-                                <td>"Hi, I need a new logo for my startup..."</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>Sarah Wanjiru</td>
-                                <td><span class="badge-type type-email">Email</span></td>
-                                <td>Business Branding</td>
-                                <td>"Interested in a full branding package..."</td>
-                                <td>5 hrs ago</td>
-                            </tr>
+                            <!-- Dynamic Content -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
+
+        <!-- Analytics View -->
+        <section id="analytics-view" class="view-section">
+            <div class="section-header">
+                <h1>Deep Analytics</h1>
+                <p>Advanced metrics and behavioral patterns.</p>
+            </div>
+            <div class="stat-card" style="text-align: center; padding: 5rem;">
+                <i class="fas fa-chart-network" style="font-size: 4rem; color: var(--accent); margin-bottom: 2rem;"></i>
+                <h2>Integrating Live Telemetry</h2>
+                <p style="color: var(--text-muted);">Real-time tracking modules are currently being synchronized with the global node network.</p>
+            </div>
+        </section>
     </main>
 
+    <!-- Modals -->
+    <div id="add-project-modal" class="modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+        <div class="admin-card" style="width: 500px; background: var(--bg-secondary); padding: 2.5rem; border-radius: 30px; border: 1px solid var(--glass-border);">
+            <h2 style="margin-bottom: 2rem;">Add New Project</h2>
+            <form class="admin-form">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label>Project Name</label>
+                    <input type="text" id="proj-name" placeholder="e.g. Modern Brand Identity">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label>Category</label>
+                    <select id="proj-cat">
+                        <option>Branding</option>
+                        <option>Web Design</option>
+                        <option>Graphic Design</option>
+                        <option>Social Media</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label>Project Image URL</label>
+                    <input type="text" id="proj-img" placeholder="https://...">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="button" class="btn" style="flex: 1;" onclick="addNewProject()">Save Project</button>
+                    <button type="button" class="btn-secondary" style="flex: 1;" onclick="document.getElementById('add-project-modal').style.display='none'">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // Global Chart Instances
+        let trafficChart, deviceChart;
+
+        // Theme Management
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('sticky_theme', newTheme);
+            
+            updateThemeIcon(newTheme);
+            refreshCharts();
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('theme-icon');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+        }
+
+        function refreshCharts() {
+            if (trafficChart) trafficChart.destroy();
+            if (deviceChart) deviceChart.destroy();
+            initCharts();
+        }
+
+        // Initialize Theme
+        const savedTheme = localStorage.getItem('sticky_theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        // View Switcher
         function showView(viewId) {
             document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             
-            document.getElementById(viewId + '-view').classList.add('active');
-            event.currentTarget.classList.add('active');
+            const activeView = document.getElementById(viewId + '-view');
+            if (activeView) {
+                activeView.classList.add('active');
+            }
+            
+            // Find and activate correct nav link
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                if (link.getAttribute('onclick')?.includes(`'${viewId}'`)) {
+                    link.classList.add('active');
+                }
+            });
         }
 
-        // Load Inquiries
-        function loadInquiries() {
+        // Data Loading
+        function loadDashboardData() {
             const inquiries = JSON.parse(localStorage.getItem('sticky_inquiries') || '[]');
-            const tableBody = document.querySelector('#inquiries-view tbody');
+            const projects = JSON.parse(localStorage.getItem('sticky_projects') || '[]');
+
+            // Recent Inquiries Table
+            const recentInqTable = document.querySelector('#recent-inquiries-table tbody');
+            const displayInquiries = inquiries.slice(0, 5);
             
-            if (inquiries.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No inquiries registered yet.</td></tr>';
-                return;
+            if (displayInquiries.length === 0) {
+                recentInqTable.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No inquiries yet.</td></tr>';
+            } else {
+                recentInqTable.innerHTML = displayInquiries.map(inq => `
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600;">${inq.name}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">${inq.type}</div>
+                        </td>
+                        <td>${inq.details.split('|')[0] || 'Branding'}</td>
+                        <td><span class="badge badge-success">New</span></td>
+                        <td>${inq.time}</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-check"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
             }
 
-            tableBody.innerHTML = inquiries.map(inq => `
+            // Inquiries View Table
+            const allInqTable = document.querySelector('#all-inquiries-table tbody');
+            allInqTable.innerHTML = inquiries.map(inq => `
                 <tr>
-                    <td>${inq.name}</td>
-                    <td><span class="badge-type type-${inq.type.toLowerCase()}">${inq.type}</span></td>
+                    <td><strong>${inq.name}</strong></td>
+                    <td><span class="badge ${inq.type === 'WhatsApp' ? 'badge-success' : 'badge-danger'}">${inq.type}</span></td>
                     <td>${inq.details.split('|')[0] || 'Inquiry'}</td>
-                    <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${inq.details}</td>
+                    <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${inq.details}</td>
                     <td>${inq.time}</td>
+                    <td>
+                        <button class="btn-icon"><i class="fas fa-reply"></i></button>
+                    </td>
                 </tr>
             `).join('');
-        }
 
-        // Load Projects
-        function loadProjects() {
-            const projects = JSON.parse(localStorage.getItem('sticky_projects') || '[]');
-            const tableBody = document.querySelector('#projects-view tbody');
+            // Projects Table
+            const projTable = document.querySelector('#projects-table tbody');
+            const baseProjects = [
+                { name: 'Corporate Branding Kit', category: 'Branding', date: 'May 10, 2026' },
+                { name: 'E-commerce Visuals', category: 'Web Design', date: 'May 05, 2026' }
+            ];
             
-            const baseProjects = `
+            const allProjects = [...baseProjects, ...projects];
+            projTable.innerHTML = allProjects.map(proj => `
                 <tr>
-                    <td>Corporate Branding Kit</td>
-                    <td>Branding</td>
-                    <td>May 10, 2026</td>
-                    <td><span style="color: var(--primary);">Public</span></td>
-                    <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
-                </tr>
-            `;
-
-            tableBody.innerHTML = baseProjects + projects.map(proj => `
-                <tr>
-                    <td>${proj.name}</td>
+                    <td><strong>${proj.name}</strong></td>
                     <td>${proj.category}</td>
+                    <td><span class="badge badge-success">Live</span></td>
                     <td>${proj.date}</td>
-                    <td><span style="color: var(--primary);">Public</span></td>
-                    <td><i class="fas fa-edit" style="cursor: pointer; margin-right: 15px;"></i> <i class="fas fa-trash" style="color: #ff4d4d; cursor: pointer;"></i></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
         }
 
-        // Initial Load
-        window.onload = () => {
-            loadInquiries();
-            loadProjects();
-        };
+        function addNewProject() {
+            const name = document.getElementById('proj-name').value;
+            const category = document.getElementById('proj-cat').value;
+            const img = document.getElementById('proj-img').value;
 
-        // Initialize Charts
-        const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
-        new Chart(ctxTraffic, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [{
-                    label: 'Website Visitors',
-                    data: [1200, 1900, 1500, 2500, 2200, 3000, 2800],
-                    borderColor: '#AFFF00',
-                    backgroundColor: 'rgba(175, 255, 0, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: '#AFFF00',
-                    pointRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { 
-                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                        ticks: { color: '#888888' }
-                    },
-                    x: { 
-                        grid: { display: false },
-                        ticks: { color: '#888888' }
+            if (!name) return alert('Please enter project name');
+
+            const projects = JSON.parse(localStorage.getItem('sticky_projects') || '[]');
+            projects.push({
+                name,
+                category,
+                img,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            });
+
+            localStorage.setItem('sticky_projects', JSON.stringify(projects));
+            document.getElementById('add-project-modal').style.display = 'none';
+            loadDashboardData();
+        }
+
+        // Charts Initialization
+        function initCharts() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            const textColor = isDark ? '#888888' : '#555555';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+
+            // Traffic Chart
+            const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
+            trafficChart = new Chart(ctxTraffic, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: [2100, 3200, 2800, 4500, 3900, 5200, 4800],
+                        borderColor: '#AFFF00',
+                        backgroundColor: 'rgba(175, 255, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#AFFF00',
+                        pointBorderColor: isDark ? '#0A0A0A' : '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: gridColor }, ticks: { color: textColor } },
+                        x: { grid: { display: false }, ticks: { color: textColor } }
                     }
                 }
-            }
-        });
+            });
 
-        const ctxDevice = document.getElementById('deviceChart').getContext('2d');
-        new Chart(ctxDevice, {
-            type: 'doughnut',
-            data: {
-                labels: ['Mobile', 'Desktop', 'Tablet'],
-                datasets: [{
-                    data: [65, 30, 5],
-                    backgroundColor: ['#AFFF00', '#FFFFFF', '#444444'],
-                    hoverOffset: 10,
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { 
-                    legend: { 
-                        position: 'bottom', 
-                        labels: { 
-                            color: '#888888',
-                            padding: 20,
-                            font: { size: 12 }
-                        } 
-                    } 
+            // Device Chart
+            const ctxDevice = document.getElementById('deviceChart').getContext('2d');
+            deviceChart = new Chart(ctxDevice, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mobile', 'Desktop', 'Tablet'],
+                    datasets: [{
+                        data: [62, 31, 7],
+                        backgroundColor: ['#AFFF00', '#444444', '#888888'],
+                        borderWidth: 0,
+                        hoverOffset: 15
+                    }]
                 },
-                cutout: '70%'
-            }
-        });
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: textColor, padding: 20, font: { family: 'Outfit', size: 12 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = () => {
+            loadDashboardData();
+            initCharts();
+        };
     </script>
 </body>
 </html>
