@@ -121,6 +121,106 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(92, 103, 247, 0.08);
+        }
+
+        [data-theme="light"] .card:hover {
+            border-color: #AFFF00;
+            box-shadow: 0 10px 30px rgba(175, 255, 0, 0.15);
+        }
+
+        /* View Switching */
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Portfolio Specific */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-primary);
+            background: rgba(92, 103, 247, 0.02);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #eee;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-item-overlay {
+            opacity: 1;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
         .nav-link.active {
             background: var(--nav-active-bg);
             color: var(--nav-active-text);
@@ -407,13 +507,13 @@
         <div class="nav-group">
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a class="nav-link">
+                    <a class="nav-link" onclick="showView('settings')">
                         <i class="fas fa-cog"></i>
                         <span>Settings</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="admin.html">
+                    <a class="nav-link" href="admin.html" onclick="logout(event)">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sign Out</span>
                     </a>
@@ -455,196 +555,302 @@
             </div>
         </header>
 
-        <div class="dashboard-grid">
-            <!-- Row 1 -->
-            <div class="card card-orders">
-                <div class="card-header">
-                    <span class="card-title">Project Requests</span>
-                    <i class="far fa-paper-plane"></i>
-                </div>
-                <div class="card-value">124</div>
-                <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 12.5% <span>from WhatsApp</span>
-                </div>
-            </div>
-
-            <div class="card card-approved">
-                <div class="card-header">
-                    <span class="card-title">Live Projects</span>
-                    <i class="far fa-check-circle"></i>
-                </div>
-                <div class="card-value">18</div>
-                <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 2 new <span>this week</span>
-                </div>
-            </div>
-
-            <div class="card card-users">
-                <div class="card-header">
-                    <span class="card-title">Site Traffic</span>
-                    <i class="far fa-chart-bar"></i>
-                </div>
-                <div class="card-value">12.4k</div>
-                <div style="height: 60px; margin-top: 10px;">
-                    <canvas id="usersChart"></canvas>
-                </div>
-            </div>
-
-            <div class="card card-subscriptions">
-                <div class="card-header">
-                    <span class="card-title">Client Retention</span>
-                    <i class="far fa-heart"></i>
-                </div>
-                <div class="card-value">94%</div>
-                <div style="height: 60px; margin-top: 10px;">
-                    <canvas id="subsChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Row 2 -->
-            <div class="card card-total">
-                <div class="card-header">
-                    <span class="card-title">Monthly Revenue</span>
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="card-value">$18,450</div>
-                <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 4.2% <span>growth</span>
-                </div>
-            </div>
-
-            <div class="card card-revenue">
-                <div class="card-header">
-                    <span class="card-title">Avg. Project Size</span>
-                    <i class="far fa-handshake"></i>
-                </div>
-                <div class="card-value">$2,800</div>
-                <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 1.2% <span>since last month</span>
-                </div>
-            </div>
-
-            <div class="card card-sales">
-                <div class="card-header">
-                    <span class="card-title">Lead Generation Dynamics</span>
-                    <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                        <option>Weekly View</option>
-                        <option>Monthly View</option>
-                    </select>
-                </div>
-                <div style="height: 250px;">
-                    <canvas id="salesChart"></canvas>
-                </div>
-            </div>
-
-            <div class="card card-invoices">
-                <div class="card-header">
-                    <i class="far fa-file-invoice-dollar" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
-                    <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #E0E4FF; position:relative;">
-                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 85% 0, 85% 85%, 0 85%);"></div>
+        <div id="dashboard-view" class="view-section active">
+            <div class="dashboard-grid">
+                <!-- Row 1 -->
+                <div class="card card-orders">
+                    <div class="card-header">
+                        <span class="card-title">Project Requests</span>
+                        <i class="far fa-paper-plane"></i>
+                    </div>
+                    <div class="card-value">124</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 12.5% <span>from WhatsApp</span>
                     </div>
                 </div>
-                <span class="card-title">Billed This Year</span>
-                <div class="card-value" style="margin-top: 0.5rem;">$142,560.00</div>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">Sticky Creatives FY 2026</span>
-            </div>
 
-            <div class="card card-funds">
-                <div class="card-header">
-                    <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
-                    <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FFF1EB; position:relative;">
-                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 72% 0, 72% 72%, 0 72%);"></div>
+                <div class="card card-approved">
+                    <div class="card-header">
+                        <span class="card-title">Live Projects</span>
+                        <i class="far fa-check-circle"></i>
+                    </div>
+                    <div class="card-value">18</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 2 new <span>this week</span>
                     </div>
                 </div>
-                <span class="card-title">Net Profit</span>
-                <div class="card-value" style="margin-top: 0.5rem;">$85,420.50</div>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">Net agency earnings</span>
-            </div>
 
-            <!-- Row 3 -->
-            <div class="card card-activity">
-                <div class="card-header">
-                    <span class="card-title">Portfolio Performance</span>
-                    <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                        <option>2026</option>
-                    </select>
+                <div class="card card-users">
+                    <div class="card-header">
+                        <span class="card-title">Site Traffic</span>
+                        <i class="far fa-chart-bar"></i>
+                    </div>
+                    <div class="card-value">12.4k</div>
+                    <div style="height: 60px; margin-top: 10px;">
+                        <canvas id="usersChart"></canvas>
+                    </div>
                 </div>
-                <div style="height: 250px;">
-                    <canvas id="activityChart"></canvas>
-                </div>
-            </div>
 
-            <div class="card card-table">
-                <div class="card-header">
-                    <span class="card-title">Recent Agency Leads</span>
-                    <i class="fas fa-sync" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
+                <div class="card card-subscriptions">
+                    <div class="card-header">
+                        <span class="card-title">Client Retention</span>
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <div class="card-value">94%</div>
+                    <div style="height: 60px; margin-top: 10px;">
+                        <canvas id="subsChart"></canvas>
+                    </div>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Client Profile</th>
-                                <th>Project Type</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Budget</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">SC</div>
-                                        <span>Sticky Cafe</span>
-                                    </div>
-                                </td>
-                                <td>Branding & Logo</td>
-                                <td>May 12, 2026</td>
-                                <td><span class="status-badge status-delivered">Live</span></td>
-                                <td><strong>$1,200</strong></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">ET</div>
-                                        <span>Eco Tech</span>
-                                    </div>
-                                </td>
-                                <td>E-commerce Site</td>
-                                <td>May 10, 2026</td>
-                                <td><span class="status-badge status-processed">Design</span></td>
-                                <td><strong>$4,500</strong></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">AL</div>
-                                        <span>Art Loft</span>
-                                    </div>
-                                </td>
-                                <td>Social Management</td>
-                                <td>May 08, 2026</td>
-                                <td><span class="status-badge status-cancelled">On Hold</span></td>
-                                <td><strong>$800</strong></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">VZ</div>
-                                        <span>Vortex Zero</span>
-                                    </div>
-                                </td>
-                                <td>UI/UX Overhaul</td>
-                                <td>May 05, 2026</td>
-                                <td><span class="status-badge status-delivered">Live</span></td>
-                                <td><strong>$3,200</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- Row 2 -->
+                <div class="card card-sales">
+                    <div class="card-header">
+                        <span class="card-title">Lead Generation Dynamics</span>
+                        <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
+                            <option>Weekly View</option>
+                            <option>Monthly View</option>
+                        </select>
+                    </div>
+                    <div style="height: 250px;">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card card-invoices">
+                    <div class="card-header">
+                        <i class="far fa-file-invoice-dollar" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                        <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #E0E4FF; position:relative;">
+                            <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 85% 0, 85% 85%, 0 85%);"></div>
+                        </div>
+                    </div>
+                    <span class="card-title">Billed This Year</span>
+                    <div class="card-value" style="margin-top: 0.5rem;">$142,560.00</div>
+                    <span style="font-size: 0.7rem; color: var(--text-muted);">Sticky Creatives FY 2026</span>
+                </div>
+
+                <div class="card card-funds">
+                    <div class="card-header">
+                        <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
+                        <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FFF1EB; position:relative;">
+                            <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 72% 0, 72% 72%, 0 72%);"></div>
+                        </div>
+                    </div>
+                    <span class="card-title">Net Profit</span>
+                    <div class="card-value" style="margin-top: 0.5rem;">$85,420.50</div>
+                    <span style="font-size: 0.7rem; color: var(--text-muted);">Net agency earnings</span>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="card card-activity">
+                    <div class="card-header">
+                        <span class="card-title">Portfolio Performance</span>
+                        <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
+                            <option>2026</option>
+                        </select>
+                    </div>
+                    <div style="height: 250px;">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card card-table">
+                    <div class="card-header">
+                        <span class="card-title">Recent Agency Leads</span>
+                        <i class="fas fa-sync" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Profile</th>
+                                    <th>Project Type</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Budget</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">SC</div>
+                                            <span>Sticky Cafe</span>
+                                        </div>
+                                    </td>
+                                    <td>Branding & Logo</td>
+                                    <td>May 12, 2026</td>
+                                    <td><span class="status-badge status-delivered">Live</span></td>
+                                    <td><strong>$1,200</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">ET</div>
+                                            <span>Eco Tech</span>
+                                        </div>
+                                    </td>
+                                    <td>E-commerce Site</td>
+                                    <td>May 10, 2026</td>
+                                    <td><span class="status-badge status-processed">Design</span></td>
+                                    <td><strong>$4,500</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Portfolio View -->
+        <div id="portfolio-view" class="view-section">
+            <div class="header" style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem;">Portfolio Management</h2>
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.5rem;" onclick="document.getElementById('upload-modal').style.display='flex'">+ Add New Work</button>
+            </div>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <div class="upload-zone" onclick="document.getElementById('upload-modal').style.display='flex'">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 1rem;"></i>
+                    <h3>Upload New Project Image</h3>
+                    <p>Drag and drop or click to browse files</p>
+                </div>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Work 1">
+                    <div class="portfolio-item-overlay">
+                        <button class="btn-help" style="width: auto;"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Work 2">
+                    <div class="portfolio-item-overlay">
+                        <button class="btn-help" style="width: auto;"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Work 3">
+                    <div class="portfolio-item-overlay">
+                        <button class="btn-help" style="width: auto;"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leads View -->
+        <div id="leads-view" class="view-section">
+            <h2 style="margin-bottom: 1.5rem;">Incoming Leads</h2>
+            <div class="card card-table">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Project</th>
+                            <th>Source</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>Web Design</td>
+                            <td>Contact Form</td>
+                            <td>May 13, 2026</td>
+                            <td><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
+                        </tr>
+                        <tr>
+                            <td>Sarah Smith</td>
+                            <td>sarah@tech.co</td>
+                            <td>Branding</td>
+                            <td>WhatsApp</td>
+                            <td>May 12, 2026</td>
+                            <td><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Clients View -->
+        <div id="clients-view" class="view-section">
+            <h2 style="margin-bottom: 1.5rem;">Our Clients</h2>
+            <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+                <div class="card">
+                    <div class="user-profile" style="margin-bottom: 1rem;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #AFFF00; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">SC</div>
+                        <div>
+                            <div style="font-weight: 700;">Sticky Cafe</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Active Client</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Working on full branding suite and menu design.</p>
+                    <button class="btn-help" style="width: 100%;">View Projects</button>
+                </div>
+                <div class="card">
+                    <div class="user-profile" style="margin-bottom: 1rem;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #5C67F7; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff;">ET</div>
+                        <div>
+                            <div style="font-weight: 700;">Eco Tech</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Project-based</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">E-commerce development for sustainable products.</p>
+                    <button class="btn-help" style="width: 100%;">View Projects</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings View -->
+        <div id="settings-view" class="view-section">
+            <h2 style="margin-bottom: 1.5rem;">Agency Settings</h2>
+            <div class="card" style="max-width: 600px;">
+                <div class="form-group">
+                    <label>Agency Name</label>
+                    <input type="text" class="form-control" value="Sticky Creatives">
+                </div>
+                <div class="form-group">
+                    <label>Admin Email</label>
+                    <input type="email" class="form-control" value="admin@stickycreatives.com">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Integration Number</label>
+                    <input type="text" class="form-control" value="+254 700 000 000">
+                </div>
+                <button class="btn-help" style="width: auto; padding: 0.8rem 2rem;">Save Changes</button>
+            </div>
+        </div>
     </main>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div class="card" style="width: 500px; padding: 2.5rem;">
+            <div class="header" style="margin-bottom: 2rem;">
+                <h2>Add New Project</h2>
+                <i class="fas fa-times" style="cursor: pointer;" onclick="document.getElementById('upload-modal').style.display='none'"></i>
+            </div>
+            <div class="form-group">
+                <label>Project Title</label>
+                <input type="text" class="form-control" placeholder="e.g. Modern Branding">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control">
+                    <option>Web Design</option>
+                    <option>Branding</option>
+                    <option>Social Media</option>
+                </select>
+            </div>
+            <div class="upload-zone" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-image" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
+                <p style="font-size: 0.8rem;">Click to upload image</p>
+            </div>
+            <button class="btn-help" style="width: 100%; padding: 1rem;">Publish to Portfolio</button>
+        </div>
+    </div>
 
     <script>
         function toggleTheme() {
@@ -807,8 +1013,50 @@
 
         function showView(viewId) {
             console.log("Switching to view:", viewId);
-            // This is a placeholder for view switching logic if needed
+            
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target view
+            const targetView = document.getElementById(viewId + '-view');
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            
+            // Update sidebar active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(viewId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update Header Title
+            const titles = {
+                'dashboard': 'Agency Insights',
+                'portfolio': 'Project Portfolio',
+                'leads': 'Leads & Inquiries',
+                'clients': 'Client Relationships',
+                'settings': 'Admin Preferences'
+            };
+            if (titles[viewId]) {
+                document.querySelector('.header-title h1').innerText = titles[viewId];
+            }
         }
+
+        function logout(e) {
+            e.preventDefault();
+            if(confirm("Are you sure you want to sign out?")) {
+                window.location.href = "admin.html";
+            }
+        }
+
+        // Calendar Click Mock
+        document.querySelector('.date-picker').addEventListener('click', () => {
+            alert("Calendar filter integration coming soon in the next update!");
+        });
     </script>
 </body>
 </html>
