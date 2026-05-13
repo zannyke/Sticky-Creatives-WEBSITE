@@ -7,1037 +7,689 @@
     <link rel="icon" type="image/png" href="sticky-icon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --sidebar-width: 280px;
-            --topbar-height: 85px;
-            --sidebar-bg: #0F0F12; /* Deeper dark for sidebar */
-            --content-bg: var(--bg-main);
-            --card-bg: var(--glass-bg);
-            --accent: var(--primary);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="light"] {
-            --sidebar-bg: #FFFFFF;
-            --sidebar-border: rgba(0, 0, 0, 0.05);
+            --sidebar-width: 260px;
+            --header-height: 80px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Light Theme (Default in Image) */
+            --bg-body: #F8F9FB;
+            --bg-card: #FFFFFF;
+            --bg-sidebar: #FFFFFF;
+            --border-color: #E8EBF1;
+            --text-main: #1A1D23;
+            --text-muted: #8E95A2;
+            --accent-primary: #5C67F7;
+            --accent-secondary: #FF8F6B;
+            --accent-success: #27AE60;
+            --nav-active-bg: #F0F2FF;
+            --nav-active-text: #5C67F7;
         }
 
         [data-theme="dark"] {
-            --sidebar-bg: #0F0F12;
-            --sidebar-border: rgba(255, 255, 255, 0.05);
+            --bg-body: #0C0D11;
+            --bg-card: #15171E;
+            --bg-sidebar: #15171E;
+            --border-color: #242831;
+            --text-main: #E2E4E9;
+            --text-muted: #9499A5;
+            --accent-primary: #5C67F7;
+            --nav-active-bg: #FFFFFF;
+            --nav-active-text: #1A1D23;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
             display: flex;
-            background: var(--content-bg);
             min-height: 100vh;
             overflow-x: hidden;
-            font-family: 'Outfit', sans-serif;
-            color: var(--text-main);
+            transition: background-color 0.4s ease;
         }
 
         /* Sidebar Styles */
         .sidebar {
             width: var(--sidebar-width);
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--sidebar-border);
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            z-index: 1000;
-            transition: var(--transition-smooth);
-            padding: 2.5rem 1rem;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            transition: var(--transition);
         }
 
-        .sidebar-header {
-            padding: 0 1rem 3rem;
+        .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .sidebar-header .logo-box {
-            width: 38px;
-            height: 38px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(175, 255, 0, 0.3);
-            flex-shrink: 0;
-        }
-
-        .sidebar-header img {
-            height: 22px;
-            filter: brightness(0);
-        }
-
-        .sidebar-header span {
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 1rem;
+            gap: 12px;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            font-size: 1.25rem;
             color: var(--text-main);
         }
 
-        .nav-section-label {
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 2rem 1rem 0.8rem;
-            opacity: 0.5;
+        .sidebar-logo i {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .nav-group {
+            margin-bottom: 2rem;
         }
 
         .nav-menu {
             list-style: none;
-            flex-grow: 1;
-            padding: 0 0.5rem;
         }
 
         .nav-item {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1rem;
             color: var(--text-muted);
             text-decoration: none;
             border-radius: 12px;
-            transition: var(--transition-smooth);
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
             cursor: pointer;
-            font-size: 0.85rem;
         }
 
         .nav-link:hover {
             color: var(--text-main);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        [data-theme="dark"] .nav-link:hover {
             background: rgba(255, 255, 255, 0.05);
         }
 
         .nav-link.active {
-            background: var(--accent);
-            color: #000 !important;
-            box-shadow: 0 10px 20px rgba(175, 255, 0, 0.2);
+            background: var(--nav-active-bg);
+            color: var(--nav-active-text);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .nav-link i {
-            font-size: 1rem;
+            font-size: 1.1rem;
             width: 20px;
             text-align: center;
-            opacity: 0.8;
         }
 
-        /* Dashboard Cards - Organization */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            margin-top: var(--topbar-height);
-            padding: 3rem;
-            width: calc(100% - var(--sidebar-width));
-            max-width: 1600px;
+        .sidebar-bottom {
+            margin-top: auto;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            padding: 1.8rem;
-            border-radius: 24px;
-            transition: var(--transition-smooth);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background: rgba(175, 255, 0, 0.02);
-        }
-
-        .stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(175, 255, 0, 0.1);
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .stat-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 1.2px;
-            margin-bottom: 4px;
-        }
-
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-main);
-            line-height: 1.2;
-        }
-
-        .stat-trend {
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Sidebar Pro Card */
-        .pro-card {
-            background: linear-gradient(135deg, rgba(175, 255, 0, 0.1) 0%, rgba(175, 255, 0, 0.02) 100%);
-            border: 1px solid rgba(175, 255, 0, 0.1);
+        .help-card {
+            background: var(--nav-active-bg);
             border-radius: 20px;
             padding: 1.5rem;
-            margin-top: 1rem;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
 
-        .pro-card h4 {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
+        .help-card img {
+            width: 80px;
+            margin-top: -40px;
+            margin-bottom: 1rem;
         }
 
-        .pro-card p {
-            font-size: 0.75rem;
+        .help-card p {
+            font-size: 0.8rem;
             color: var(--text-muted);
             margin-bottom: 1rem;
             line-height: 1.4;
         }
 
-        .pro-card .btn-pro {
-            width: 100%;
-            padding: 0.6rem;
-            background: var(--accent);
-            color: #000;
+        .btn-help {
+            background: var(--accent-primary);
+            color: white;
             border: none;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .pro-card .btn-pro:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(175, 255, 0, 0.3);
-        }
-
-        /* Top Bar Styles */
-        .topbar {
-            height: var(--topbar-height);
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: var(--sidebar-width);
-            background: rgba(var(--bg-main-rgb), 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--sidebar-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2.5rem;
-            z-index: 999;
-            transition: var(--transition-smooth);
-        }
-
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--sidebar-border);
-            border-radius: 14px;
             padding: 0.6rem 1.2rem;
-            width: 400px;
-            gap: 12px;
-            transition: var(--transition-smooth);
-        }
-
-        [data-theme="light"] .search-wrapper {
-            background: rgba(0, 0, 0, 0.03);
-        }
-
-        .search-wrapper:focus-within {
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .search-wrapper i {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .search-wrapper input {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            width: 100%;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .search-wrapper input:focus {
-            outline: none;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .action-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--sidebar-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
+            width: 100%;
         }
 
-        [data-theme="light"] .action-icon {
-            background: rgba(0, 0, 0, 0.03);
+        /* Main Content */
+        .main-container {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2.5rem;
+            width: calc(100% - var(--sidebar-width));
         }
 
-        .action-icon:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
         }
 
-        .pulse-dot {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 8px;
-            height: 8px;
-            background: #ff4d4d;
-            border-radius: 50%;
-            border: 2px solid var(--bg-main);
+        .header-title h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
         }
 
-        .user-pill {
+        .header-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 0.4rem;
-            padding-right: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--sidebar-border);
-            border-radius: 100px;
-            margin-left: 0.5rem;
+            gap: 1.5rem;
         }
 
-        .user-pill .avatar {
+        .date-picker {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 4px;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+
+        .theme-btn {
             width: 32px;
             height: 32px;
-            border-radius: 50%;
-            background: var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            color: #000;
-            font-size: 0.75rem;
-        }
-
-        .user-pill .details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-pill .name {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .user-pill .role {
-            font-size: 0.65rem;
+            border-radius: 50%;
             color: var(--text-muted);
+            transition: var(--transition);
         }
 
-        .trend-up { color: #25D366; }
-        .trend-down { color: #ff4d4d; }
+        .theme-btn.active {
+            background: var(--accent-primary);
+            color: white;
+        }
 
-        /* Charts Section */
-        .charts-grid {
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-profile img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
         }
 
-        .chart-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 28px;
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: var(--transition);
         }
 
-        .chart-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
+
+        .card-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-trend {
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up { color: var(--accent-success); }
+        .trend-down { color: #E74C3C; }
+
+        /* Custom Card Styles from Image */
+        .card-orders { grid-column: span 1; }
+        .card-approved { grid-column: span 1; }
+        .card-users { grid-column: span 1; }
+        .card-subscriptions { grid-column: span 1; }
+
+        .card-total { grid-column: span 1; }
+        .card-revenue { grid-column: span 1; }
+
+        .card-sales { grid-column: span 2; min-height: 350px; }
+        .card-invoices { grid-column: span 1; }
+        .card-funds { grid-column: span 1; }
+
+        .card-activity { grid-column: span 2; min-height: 350px; }
+        .card-table { grid-column: span 2; }
 
         /* Tables */
-        .table-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 28px;
-            overflow: hidden;
-        }
-
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .data-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
-
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 1rem;
         }
 
         .data-table th {
             text-align: left;
-            padding: 1.2rem;
             font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             color: var(--text-muted);
-            border-bottom: 1px solid var(--glass-border);
+            text-transform: uppercase;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .data-table td {
-            padding: 1.2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-size: 0.9rem;
+            padding: 1rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .data-table tr:last-child td {
             border-bottom: none;
         }
 
-        .data-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .badge {
-            padding: 6px 12px;
-            border-radius: 100px;
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 8px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .badge-success { background: rgba(37, 211, 102, 0.1); color: #25D366; }
-        .badge-warning { background: rgba(255, 193, 7, 0.1); color: #FFC107; }
-        .badge-danger { background: rgba(255, 77, 77, 0.1); color: #FF4D4D; }
+        .status-delivered { background: rgba(39, 174, 96, 0.1); color: #27AE60; }
+        .status-processed { background: rgba(52, 152, 219, 0.1); color: #3498DB; }
+        .status-cancelled { background: rgba(231, 76, 60, 0.1); color: #E74C3C; }
 
-        /* Actions */
-        .action-btns {
+        .user-cell {
             display: flex;
+            align-items: center;
             gap: 10px;
         }
 
-        .btn-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: transparent;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
+        .user-cell img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
         }
 
-        .btn-icon:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(175, 255, 0, 0.05);
+        @media (max-width: 1400px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .card-sales, .card-activity, .card-table { grid-column: span 2; }
         }
 
-        .btn-icon.delete:hover {
-            border-color: #ff4d4d;
-            color: #ff4d4d;
-            background: rgba(255, 77, 77, 0.05);
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .sidebar { width: 80px; padding: 1.5rem 0.8rem; }
-            .sidebar-header span, .nav-link span, .user-info, .sidebar-footer span { display: none; }
-            .sidebar-header { justify-content: center; padding: 1rem 0 3rem; }
-            .nav-link { justify-content: center; padding: 1rem; }
-            .user-profile { justify-content: center; padding: 0.8rem; }
-            .topbar { left: 80px; padding: 0 1.5rem; }
-            .main-content { margin-left: 80px; padding: 2rem; width: calc(100% - 80px); }
-            .charts-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar { 
-                width: 100%; 
-                height: auto; 
-                top: auto; 
-                bottom: 0; 
-                flex-direction: row; 
-                padding: 0.5rem;
-                border-right: none;
-                border-top: 1px solid var(--glass-border);
-                background: rgba(var(--bg-secondary-rgb, 20, 20, 20), 0.95);
-                backdrop-filter: blur(20px);
-            }
-            .sidebar-header, .sidebar-footer { display: none; }
-            .nav-menu { display: flex; width: 100%; justify-content: space-around; }
-            .nav-item { margin-bottom: 0; }
-            .nav-link { flex-direction: column; gap: 4px; font-size: 0.65rem; padding: 0.6rem; }
-            .topbar { left: 0; padding: 0 1rem; }
-            .search-bar { display: none; }
-            .main-content { margin-left: 0; margin-bottom: 80px; padding: 1.5rem; width: 100%; }
-        }
-
-        /* Theme Toggle specific */
-        [data-theme="light"] {
-            --bg-main-rgb: 244, 244, 244;
-            --bg-secondary-rgb: 235, 235, 235;
-        }
-        [data-theme="dark"] {
-            --bg-main-rgb: 10, 10, 10;
-            --bg-secondary-rgb: 18, 18, 18;
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .main-container { margin-left: 0; width: 100%; }
         }
     </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo-box">
-                <img src="sticky-icon.png" alt="Logo">
-            </div>
-            <span>StickySam</span>
+        <div class="sidebar-logo">
+            <i class="fas fa-shapes"></i>
+            <span>Business</span>
         </div>
-        
-        <div class="nav-section-label">General</div>
-        <nav class="nav-menu">
-            <div class="nav-item">
-                <a class="nav-link active" onclick="showView('dashboard')">
-                    <i class="fas fa-th-large"></i>
-                    <span>Overview</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" onclick="showView('projects')">
-                    <i class="fas fa-briefcase"></i>
-                    <span>Portfolio</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" onclick="showView('inquiries')">
-                    <i class="fas fa-envelope"></i>
-                    <span>Inquiries</span>
-                </a>
-            </div>
-            
-            <div class="nav-section-label">System</div>
-            <div class="nav-item">
-                <a class="nav-link" onclick="showView('analytics')">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Analytics</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" onclick="showView('settings')">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-            </div>
+
+        <nav class="nav-group">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Customers</span>
+                    </a>
+                </li>
+            </ul>
         </nav>
 
-        <div class="pro-card">
-            <h4>Upgrade to Pro</h4>
-            <p>Get advanced analytics and custom domain support.</p>
-            <button class="btn-pro">Go Premium</button>
-        </div>
+        <nav class="nav-group">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-        <div class="sidebar-footer" style="margin-top: 2rem;">
-            <a href="admin.html" class="nav-link" style="color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.1);">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Sign Out</span>
-            </a>
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Help">
+                <p>Need help? feel free to contact</p>
+                <button class="btn-help">Get support</button>
+            </div>
         </div>
     </aside>
 
-    <header class="topbar">
-        <div class="search-wrapper">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search data, clients, projects...">
-        </div>
+    <main class="main-container">
+        <header class="header">
+            <div class="header-title">
+                <h1>Analytics</h1>
+            </div>
+            <div class="header-actions">
+                <div class="date-picker">
+                    <span>01.08.2022 - 31.08.2022</span>
+                    <i class="far fa-calendar"></i>
+                </div>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <div class="theme-btn active" id="theme-light">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="theme-btn" id="theme-dark">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <span>Kristi Kamilikova</span>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="User">
+                </div>
+            </div>
+        </header>
 
-        <div class="topbar-right">
-            <div class="action-icon" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </div>
-            <div class="action-icon" title="Notifications">
-                <i class="fas fa-bell"></i>
-                <div class="pulse-dot"></div>
-            </div>
-            <div class="user-pill">
-                <div class="avatar">AD</div>
-                <div class="details">
-                    <span class="name">Admin User</span>
-                    <span class="role">Chief Editor</span>
+        <div class="dashboard-grid">
+            <!-- Row 1 -->
+            <div class="card card-orders">
+                <div class="card-header">
+                    <span class="card-title">Orders</span>
+                    <i class="far fa-square"></i>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="main-content">
-        <!-- Dashboard Overview -->
-        <section id="dashboard-view" class="view-section active">
-            <div class="section-header">
-                <h1>Performance Hub</h1>
-                <p>Welcome back! Here's what's happening with Sticky Creatives today.</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-label">Total Visitors</div>
-                        <div class="stat-value">24.8k</div>
-                    </div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i> 12.5% vs last month
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-envelope"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-label">New Inquiries</div>
-                        <div class="stat-value">52</div>
-                    </div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i> 8.2% vs last week
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-label">Active Projects</div>
-                        <div class="stat-value">14</div>
-                    </div>
-                    <div class="stat-trend trend-down">
-                        <i class="fas fa-arrow-down"></i> 2 projects completed
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-label">Conv. Rate</div>
-                        <div class="stat-value">3.4%</div>
-                    </div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i> 1.2% this week
-                    </div>
+                <div class="card-value">201</div>
+                <div class="card-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 8.2% <span>since last month</span>
                 </div>
             </div>
 
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Traffic Insights</h3>
-                        <select class="btn-icon" style="width: auto; padding: 0 15px; font-size: 0.8rem;">
-                            <option>Last 7 Days</option>
-                            <option>Last 30 Days</option>
-                        </select>
-                    </div>
-                    <canvas id="trafficChart" style="height: 350px !important;"></canvas>
+            <div class="card card-approved">
+                <div class="card-header">
+                    <span class="card-title">Approved</span>
+                    <i class="far fa-check-square"></i>
                 </div>
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Device Flow</h3>
-                    </div>
-                    <canvas id="deviceChart" style="height: 350px !important;"></canvas>
+                <div class="card-value">36</div>
+                <div class="card-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 3.4% <span>since last month</span>
                 </div>
             </div>
 
-            <div class="table-card">
-                <div class="table-header">
-                    <h3>Recent Inquiries</h3>
-                    <button class="btn" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="showView('inquiries')">View All</button>
+            <div class="card card-users">
+                <div class="card-header">
+                    <span class="card-title">Users</span>
+                    <i class="far fa-user"></i>
                 </div>
-                <div class="data-table-wrapper">
-                    <table class="data-table" id="recent-inquiries-table">
-                        <thead>
-                            <tr>
-                                <th>Client</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Dynamic Content -->
-                        </tbody>
-                    </table>
+                <div class="card-value">4.890</div>
+                <div style="height: 60px; margin-top: 10px;">
+                    <canvas id="usersChart"></canvas>
                 </div>
             </div>
-        </section>
 
-        <!-- Projects View -->
-        <section id="projects-view" class="view-section">
-            <div class="section-header">
-                <h1>Portfolio Management</h1>
-                <p>Add, edit or remove projects from the live website.</p>
-            </div>
-            
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="search-bar" style="width: 300px; display: flex;">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Filter projects...">
-                    </div>
-                    <button class="btn" onclick="document.getElementById('add-project-modal').style.display='flex'">
-                        <i class="fas fa-plus"></i> Add Project
-                    </button>
+            <div class="card card-subscriptions">
+                <div class="card-header">
+                    <span class="card-title">Subscriptions</span>
+                    <i class="far fa-bell"></i>
                 </div>
-                <div class="data-table-wrapper">
-                    <table class="data-table" id="projects-table">
-                        <thead>
-                            <tr>
-                                <th>Project Name</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Dynamic Content -->
-                        </tbody>
-                    </table>
+                <div class="card-value">1.201</div>
+                <div style="height: 60px; margin-top: 10px;">
+                    <canvas id="subsChart"></canvas>
                 </div>
             </div>
-        </section>
 
-        <!-- Inquiries View -->
-        <section id="inquiries-view" class="view-section">
-            <div class="section-header">
-                <h1>Customer Inquiries</h1>
-                <p>Manage lead flow and communication channels.</p>
-            </div>
-            
-            <div class="table-card">
-                <div class="data-table-wrapper">
-                    <table class="data-table" id="all-inquiries-table">
-                        <thead>
-                            <tr>
-                                <th>Client Name</th>
-                                <th>Channel</th>
-                                <th>Project Type</th>
-                                <th>Message Preview</th>
-                                <th>Received</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Dynamic Content -->
-                        </tbody>
-                    </table>
+            <!-- Row 2 -->
+            <div class="card card-total">
+                <div class="card-header">
+                    <span class="card-title">Month total</span>
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="card-value">25410</div>
+                <div class="card-trend trend-down">
+                    <i class="fas fa-arrow-down"></i> 1.2% <span>since last month</span>
                 </div>
             </div>
-        </section>
 
-        <!-- Analytics View -->
-        <section id="analytics-view" class="view-section">
-            <div class="section-header">
-                <h1>Deep Analytics</h1>
-                <p>Advanced metrics and behavioral patterns.</p>
-            </div>
-            <div class="stat-card" style="text-align: center; padding: 5rem;">
-                <i class="fas fa-chart-network" style="font-size: 4rem; color: var(--accent); margin-bottom: 2rem;"></i>
-                <h2>Integrating Live Telemetry</h2>
-                <p style="color: var(--text-muted);">Real-time tracking modules are currently being synchronized with the global node network.</p>
-            </div>
-        </section>
-
-        <!-- Settings View -->
-        <section id="settings-view" class="view-section">
-            <div class="section-header">
-                <h1>Admin Settings</h1>
-                <p>Configure portal preferences and security.</p>
-            </div>
-            <div class="table-card">
-                <h3 style="margin-bottom: 1.5rem;">Security</h3>
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <div class="search-wrapper" style="width: 100%; justify-content: space-between;">
-                        <span>Enable Two-Factor Authentication</span>
-                        <input type="checkbox" style="width: auto;">
-                    </div>
-                    <div class="search-wrapper" style="width: 100%; justify-content: space-between;">
-                        <span>Session Timeout (Minutes)</span>
-                        <input type="number" value="30" style="width: 60px; text-align: center;">
-                    </div>
-                    <button class="btn" style="width: fit-content; margin-top: 1rem;">Update Security Policy</button>
+            <div class="card card-revenue">
+                <div class="card-header">
+                    <span class="card-title">Revenue</span>
+                    <i class="far fa-credit-card"></i>
+                </div>
+                <div class="card-value">1352</div>
+                <div class="card-trend trend-down">
+                    <i class="fas fa-arrow-down"></i> 1.2% <span>since last month</span>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Modals -->
-    <div id="add-project-modal" class="modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-        <div class="admin-card" style="width: 500px; background: var(--bg-secondary); padding: 2.5rem; border-radius: 30px; border: 1px solid var(--glass-border);">
-            <h2 style="margin-bottom: 2rem;">Add New Project</h2>
-            <form class="admin-form">
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label>Project Name</label>
-                    <input type="text" id="proj-name" placeholder="e.g. Modern Brand Identity">
-                </div>
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label>Category</label>
-                    <select id="proj-cat">
-                        <option>Branding</option>
-                        <option>Web Design</option>
-                        <option>Graphic Design</option>
-                        <option>Social Media</option>
+            <div class="card card-sales">
+                <div class="card-header">
+                    <span class="card-title">Sales dynamics</span>
+                    <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
+                        <option>2021</option>
                     </select>
                 </div>
-                <div class="form-group" style="margin-bottom: 2rem;">
-                    <label>Project Image URL</label>
-                    <input type="text" id="proj-img" placeholder="https://...">
+                <div style="height: 250px;">
+                    <canvas id="salesChart"></canvas>
                 </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="button" class="btn" style="flex: 1;" onclick="addNewProject()">Save Project</button>
-                    <button type="button" class="btn-secondary" style="flex: 1;" onclick="document.getElementById('add-project-modal').style.display='none'">Cancel</button>
+            </div>
+
+            <div class="card card-invoices">
+                <div class="card-header">
+                    <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                    <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #E0E4FF; position:relative;">
+                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 80% 0, 80% 80%, 0 80%);"></div>
+                    </div>
                 </div>
-            </form>
+                <span class="card-title">Paid Invoices</span>
+                <div class="card-value" style="margin-top: 0.5rem;">$30256.23</div>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Current Financial Year</span>
+            </div>
+
+            <div class="card card-funds">
+                <div class="card-header">
+                    <i class="far fa-briefcase" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
+                    <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FFF1EB; position:relative;">
+                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 60% 0, 60% 60%, 0 60%);"></div>
+                    </div>
+                </div>
+                <span class="card-title">Funds received</span>
+                <div class="card-value" style="margin-top: 0.5rem;">$150256.23</div>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Current Financial Year</span>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="card card-activity">
+                <div class="card-header">
+                    <span class="card-title">Overall User Activity</span>
+                    <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
+                        <option>2021</option>
+                    </select>
+                </div>
+                <div style="height: 250px;">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card card-table">
+                <div class="card-header">
+                    <span class="card-title">Customer order</span>
+                    <i class="fas fa-redo-alt" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Profile</th>
+                                <th>Address</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://i.pravatar.cc/150?u=1" alt="U1">
+                                        <span>Press</span>
+                                    </div>
+                                </td>
+                                <td>London</td>
+                                <td>22.08.2022</td>
+                                <td><span class="status-badge status-delivered">Delivered</span></td>
+                                <td><strong>$920</strong></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://i.pravatar.cc/150?u=2" alt="U2">
+                                        <span>Marina</span>
+                                    </div>
+                                </td>
+                                <td>Man city</td>
+                                <td>24.08.2022</td>
+                                <td><span class="status-badge status-processed">Processed</span></td>
+                                <td><strong>$452</strong></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://i.pravatar.cc/150?u=3" alt="U3">
+                                        <span>Alex</span>
+                                    </div>
+                                </td>
+                                <td>Unknown</td>
+                                <td>18.08.2022</td>
+                                <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                                <td><strong>$1000</strong></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://i.pravatar.cc/150?u=4" alt="U4">
+                                        <span>Robert</span>
+                                    </div>
+                                </td>
+                                <td>New York</td>
+                                <td>03.08.2022</td>
+                                <td><span class="status-badge status-delivered">Delivered</span></td>
+                                <td><strong>$1235</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Global Chart Instances
-        let trafficChart, deviceChart;
-
-        // Theme Management
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
             body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('sticky_theme', newTheme);
+            document.getElementById('theme-light').classList.toggle('active');
+            document.getElementById('theme-dark').classList.toggle('active');
             
-            updateThemeIcon(newTheme);
-            refreshCharts();
+            // Save theme preference
+            localStorage.setItem('admin_theme', newTheme);
+            
+            // Update charts colors
+            updateCharts(newTheme);
         }
 
-        function updateThemeIcon(theme) {
-            const icon = document.getElementById('theme-icon');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-moon';
-            } else {
-                icon.className = 'fas fa-sun';
-            }
-        }
-
-        function refreshCharts() {
-            if (trafficChart) trafficChart.destroy();
-            if (deviceChart) deviceChart.destroy();
-            initCharts();
-        }
-
-        // Initialize Theme
-        const savedTheme = localStorage.getItem('sticky_theme') || 'dark';
+        // Load saved theme
+        const savedTheme = localStorage.getItem('admin_theme') || 'light';
         document.body.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-
-        // View Switcher
-        function showView(viewId) {
-            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            
-            const activeView = document.getElementById(viewId + '-view');
-            if (activeView) {
-                activeView.classList.add('active');
-            }
-            
-            // Find and activate correct nav link
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => {
-                if (link.getAttribute('onclick')?.includes(`'${viewId}'`)) {
-                    link.classList.add('active');
-                }
-            });
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-light').classList.remove('active');
+            document.getElementById('theme-dark').classList.add('active');
         }
 
-        // Data Loading
-        function loadDashboardData() {
-            const inquiries = JSON.parse(localStorage.getItem('sticky_inquiries') || '[]');
-            const projects = JSON.parse(localStorage.getItem('sticky_projects') || '[]');
+        // Charts
+        let salesChart, activityChart, usersChart, subsChart;
 
-            // Recent Inquiries Table
-            const recentInqTable = document.querySelector('#recent-inquiries-table tbody');
-            const displayInquiries = inquiries.slice(0, 5);
-            
-            if (displayInquiries.length === 0) {
-                recentInqTable.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No inquiries yet.</td></tr>';
-            } else {
-                recentInqTable.innerHTML = displayInquiries.map(inq => `
-                    <tr>
-                        <td>
-                            <div style="font-weight: 600;">${inq.name}</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">${inq.type}</div>
-                        </td>
-                        <td>${inq.details.split('|')[0] || 'Branding'}</td>
-                        <td><span class="badge badge-success">New</span></td>
-                        <td>${inq.time}</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
-                                <button class="btn-icon"><i class="fas fa-check"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            // Inquiries View Table
-            const allInqTable = document.querySelector('#all-inquiries-table tbody');
-            allInqTable.innerHTML = inquiries.map(inq => `
-                <tr>
-                    <td><strong>${inq.name}</strong></td>
-                    <td><span class="badge ${inq.type === 'WhatsApp' ? 'badge-success' : 'badge-danger'}">${inq.type}</span></td>
-                    <td>${inq.details.split('|')[0] || 'Inquiry'}</td>
-                    <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${inq.details}</td>
-                    <td>${inq.time}</td>
-                    <td>
-                        <button class="btn-icon"><i class="fas fa-reply"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-
-            // Projects Table
-            const projTable = document.querySelector('#projects-table tbody');
-            const baseProjects = [
-                { name: 'Corporate Branding Kit', category: 'Branding', date: 'May 10, 2026' },
-                { name: 'E-commerce Visuals', category: 'Web Design', date: 'May 05, 2026' }
-            ];
-            
-            const allProjects = [...baseProjects, ...projects];
-            projTable.innerHTML = allProjects.map(proj => `
-                <tr>
-                    <td><strong>${proj.name}</strong></td>
-                    <td>${proj.category}</td>
-                    <td><span class="badge badge-success">Live</span></td>
-                    <td>${proj.date}</td>
-                    <td>
-                        <div class="action-btns">
-                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                            <button class="btn-icon delete"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function addNewProject() {
-            const name = document.getElementById('proj-name').value;
-            const category = document.getElementById('proj-cat').value;
-            const img = document.getElementById('proj-img').value;
-
-            if (!name) return alert('Please enter project name');
-
-            const projects = JSON.parse(localStorage.getItem('sticky_projects') || '[]');
-            projects.push({
-                name,
-                category,
-                img,
-                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-            });
-
-            localStorage.setItem('sticky_projects', JSON.stringify(projects));
-            document.getElementById('add-project-modal').style.display = 'none';
-            loadDashboardData();
-        }
-
-        // Charts Initialization
         function initCharts() {
             const isDark = document.body.getAttribute('data-theme') === 'dark';
-            const textColor = isDark ? '#888888' : '#555555';
-            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+            const gridColor = isDark ? '#242831' : '#E8EBF1';
+            const textColor = isDark ? '#9499A5' : '#8E95A2';
 
-            // Traffic Chart
-            const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
-            trafficChart = new Chart(ctxTraffic, {
-                type: 'line',
+            // Sales Chart (Bar)
+            const ctxSales = document.getElementById('salesChart').getContext('2d');
+            salesChart = new Chart(ctxSales, {
+                type: 'bar',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
                     datasets: [{
-                        label: 'Visitors',
-                        data: [2100, 3200, 2800, 4500, 3900, 5200, 4800],
-                        borderColor: '#AFFF00',
-                        backgroundColor: 'rgba(175, 255, 0, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 3,
-                        pointBackgroundColor: '#AFFF00',
-                        pointBorderColor: isDark ? '#0A0A0A' : '#FFFFFF',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
+                        label: 'Sales',
+                        data: [45, 60, 35, 75, 40, 90, 55, 80, 45, 100, 65, 85],
+                        backgroundColor: '#5C67F7',
+                        borderRadius: 5,
+                        barThickness: 8
                     }]
                 },
                 options: {
@@ -1045,43 +697,105 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        y: { grid: { color: gridColor }, ticks: { color: textColor } },
-                        x: { grid: { display: false }, ticks: { color: textColor } }
+                        y: { 
+                            grid: { color: gridColor, drawBorder: false },
+                            ticks: { color: textColor, font: { size: 10 } }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { size: 10 } }
+                        }
                     }
                 }
             });
 
-            // Device Chart
-            const ctxDevice = document.getElementById('deviceChart').getContext('2d');
-            deviceChart = new Chart(ctxDevice, {
-                type: 'doughnut',
+            // Activity Chart (Line)
+            const ctxActivity = document.getElementById('activityChart').getContext('2d');
+            activityChart = new Chart(ctxActivity, {
+                type: 'line',
                 data: {
-                    labels: ['Mobile', 'Desktop', 'Tablet'],
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'],
                     datasets: [{
-                        data: [62, 31, 7],
-                        backgroundColor: ['#AFFF00', '#444444', '#888888'],
-                        borderWidth: 0,
-                        hoverOffset: 15
+                        data: [200, 450, 300, 600, 400, 750, 500],
+                        borderColor: '#9B51E0',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '75%',
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { color: textColor, padding: 20, font: { family: 'Outfit', size: 12 } }
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            grid: { color: gridColor, drawBorder: false },
+                            ticks: { color: textColor, font: { size: 10 } }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { size: 10 } }
                         }
                     }
                 }
             });
+
+            // Small Users Chart (Donut)
+            const ctxUsers = document.getElementById('usersChart').getContext('2d');
+            usersChart = new Chart(ctxUsers, {
+                type: 'doughnut',
+                data: {
+                    labels: ['New', 'Returning', 'Inactive'],
+                    datasets: [{
+                        data: [62, 26, 12],
+                        backgroundColor: ['#F2994A', '#F2C94C', '#EB5757'],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Small Subs Chart (Donut)
+            const ctxSubs = document.getElementById('subsChart').getContext('2d');
+            subsChart = new Chart(ctxSubs, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Paid', 'Trial'],
+                    datasets: [{
+                        data: [70, 30],
+                        backgroundColor: ['#2D9CDB', '#56CCF2'],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
         }
 
-        window.onload = () => {
-            loadDashboardData();
-            initCharts();
-        };
+        function updateCharts(theme) {
+            const isDark = theme === 'dark';
+            const gridColor = isDark ? '#242831' : '#E8EBF1';
+            const textColor = isDark ? '#9499A5' : '#8E95A2';
+
+            [salesChart, activityChart].forEach(chart => {
+                chart.options.scales.y.grid.color = gridColor;
+                chart.options.scales.y.ticks.color = textColor;
+                chart.options.scales.x.ticks.color = textColor;
+                chart.update();
+            });
+        }
+
+        window.onload = initCharts;
     </script>
 </body>
 </html>
