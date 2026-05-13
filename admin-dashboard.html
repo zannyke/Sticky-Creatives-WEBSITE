@@ -708,14 +708,14 @@
         <div id="portfolio-view" class="view-section">
             <div class="header" style="margin-bottom: 1.5rem;">
                 <h2 style="font-size: 1.5rem;">Portfolio Management</h2>
-                <button class="btn-help" style="width: auto; padding: 0.6rem 1.5rem;" onclick="document.getElementById('upload-modal').style.display='flex'">+ Add New Work</button>
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.5rem;" onclick="showView('upload')">+ Add New Work</button>
             </div>
             
-            <div class="card" style="margin-bottom: 2rem;">
-                <div class="upload-zone" onclick="document.getElementById('upload-modal').style.display='flex'">
+            <div class="card" style="margin-bottom: 2rem; cursor: pointer;" onclick="showView('upload')">
+                <div class="upload-zone">
                     <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 1rem;"></i>
                     <h3>Upload New Project Image</h3>
-                    <p>Drag and drop or click to browse files</p>
+                    <p>Click here to open the upload page</p>
                 </div>
             </div>
 
@@ -852,6 +852,71 @@
             </div>
         </div>
 
+        <!-- Upload Page View -->
+        <div id="upload-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('portfolio')"><i class="fas fa-arrow-left"></i> Back to Portfolio</button>
+                <h2 style="margin-left: 1.5rem;">Add New Project</h2>
+            </div>
+            <div class="card" style="max-width: 600px; padding: 3rem;">
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" class="form-control" placeholder="e.g. Modern Branding">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control">
+                        <option>Web Design</option>
+                        <option>Branding</option>
+                        <option>Social Media</option>
+                    </select>
+                </div>
+                <div class="upload-zone" style="margin-bottom: 2rem;">
+                    <i class="fas fa-image" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 1rem;"></i>
+                    <p>Click to upload project cover image</p>
+                </div>
+                <button class="btn-help" style="width: 100%; padding: 1rem;" onclick="alert('Project published successfully!'); showView('portfolio');">Publish to Portfolio</button>
+            </div>
+        </div>
+
+        <!-- Calendar Page View -->
+        <div id="calendar-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('dashboard')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                <h2 style="margin-left: 1.5rem;">Select Reporting Period</h2>
+            </div>
+            <div class="card" style="max-width: 800px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.5rem; padding: 2rem;">
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('May 2026')">May 2026</button>
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('April 2026')">April 2026</button>
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('March 2026')">March 2026</button>
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('Feb 2026')">Feb 2026</button>
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('Jan 2026')">Jan 2026</button>
+                    <button class="btn-help" style="width: auto; height: 100px; font-size: 1.1rem;" onclick="selectDate('Q1 2026')">Q1 2026</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Page View -->
+        <div id="support-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('dashboard')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                <h2 style="margin-left: 1.5rem;">Help & Support</h2>
+            </div>
+            <div class="card" style="max-width: 600px; text-align: center; padding: 4rem 3rem;">
+                <i class="fas fa-headset" style="font-size: 4rem; color: var(--accent-primary); margin-bottom: 2rem;"></i>
+                <h2>How can we help?</h2>
+                <p style="color: var(--text-muted); margin: 1.5rem 0 2.5rem;">Sticky Creatives support is available 24/7. Click below to generate a priority support ticket.</p>
+                <button class="btn-help" style="width: 100%; padding: 1.2rem;" onclick="generateTicket()">Create Priority Support Ticket</button>
+                
+                <div id="ticket-success" style="display: none; margin-top: 3rem; animation: fadeIn 0.4s ease-out;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--accent-success); margin-bottom: 1rem;"></i>
+                    <h3>Ticket Created Successfully!</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Your Ticket ID: <strong id="ticket-id-display">STK-0000</strong></p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">We'll contact you via your registered admin email.</p>
+                </div>
+            </div>
+        </div>
         <!-- Settings View -->
         <div id="settings-view" class="view-section">
             <h2 style="margin-bottom: 1.5rem;">Agency Settings</h2>
@@ -868,7 +933,7 @@
                     <label>WhatsApp Integration Number</label>
                     <input type="text" class="form-control" value="+254 700 000 000">
                 </div>
-                <button class="btn-help" style="width: auto; padding: 0.8rem 2rem;">Save Changes</button>
+                <button class="btn-help" style="width: auto; padding: 0.8rem 2rem;" onclick="alert('Settings saved!')">Save Changes</button>
             </div>
         </div>
     </main>
@@ -1253,29 +1318,22 @@
         }
 
         function openCalendar() {
-            document.getElementById('calendar-modal').style.display = 'flex';
+            showView('calendar');
         }
 
         function selectDate(dateStr) {
             document.querySelector('.date-picker span').innerText = dateStr;
-            document.getElementById('calendar-modal').style.display = 'none';
-            // Mock data update logic here
+            showView('dashboard');
         }
 
         function getSupport() {
-            const ticketId = "STK-" + Math.floor(Math.random() * 10000);
-            const overlay = document.createElement('div');
-            overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(5px);";
-            overlay.innerHTML = `
-                <div class="card" style="width:400px; padding:3rem; text-align:center;">
-                    <i class="fas fa-check-circle" style="font-size:4rem; color:var(--accent-success); margin-bottom:1.5rem;"></i>
-                    <h2>Support Ticket Created</h2>
-                    <p style="color:var(--text-muted); margin:1rem 0;">Ticket ID: <strong>${ticketId}</strong></p>
-                    <p>Our team will contact you within 2 hours.</p>
-                    <button class="btn-help" style="margin-top:2rem; width:100%;" onclick="this.parentElement.parentElement.remove()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(overlay);
+            showView('support');
+        }
+
+        function generateTicket() {
+            const ticketId = "STK-" + Math.floor(Math.random() * 10000 + 1000);
+            document.getElementById('ticket-id-display').innerText = ticketId;
+            document.getElementById('ticket-success').style.display = 'block';
         }
 
         function logout(e) {
