@@ -506,10 +506,22 @@
             }
             .main-container {
                 margin-left: 0;
-                padding: 1rem;
+                padding: 1rem 0.75rem; /* Tighter padding for mobile */
             }
             .header {
                 padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .header-title h1 {
+                font-size: 1.25rem; /* Smaller heading */
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+                border-top: 1px solid var(--border-color);
+                padding-top: 10px;
             }
             .header-actions .date-picker,
             .header-actions .user-profile span {
@@ -517,12 +529,29 @@
             }
             .dashboard-grid {
                 grid-template-columns: 1fr !important;
+                gap: 1rem;
             }
             .card-sales, .card-activity, .card-table {
                 grid-column: span 1 !important;
             }
+            .card {
+                padding: 1rem; /* Reduced card padding on mobile */
+            }
+            .card-value {
+                font-size: 1.5rem; /* Scaled down metric values */
+            }
             .mobile-toggle {
                 display: flex !important;
+            }
+            .data-table-wrapper {
+                overflow-x: auto; /* Enable scrolling for wide tables */
+                -webkit-overflow-scrolling: touch;
+            }
+            .view-section h2 {
+                font-size: 1.2rem;
+            }
+            #chart-detail-view .card {
+                height: 350px !important; /* Shorter charts for mobile */
             }
         }
 
@@ -737,7 +766,7 @@
                         <span class="card-title">Recent Agency Leads</span>
                         <i class="fas fa-sync" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
                     </div>
-                    <div style="overflow-x: auto;">
+                    <div class="data-table-wrapper">
                         <table class="data-table">
                             <thead>
                                 <tr>
