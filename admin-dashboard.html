@@ -52,96 +52,166 @@
             flex-direction: column;
             z-index: 1000;
             transition: var(--transition-smooth);
-            padding: 2rem 1.2rem;
+            padding: 2.5rem 1rem;
         }
 
         .sidebar-header {
-            padding: 0 0.8rem 2.5rem;
+            padding: 0 1rem 3rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .sidebar-header .logo-box {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: var(--accent);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 16px rgba(175, 255, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(175, 255, 0, 0.3);
+            flex-shrink: 0;
         }
 
         .sidebar-header img {
-            height: 24px;
+            height: 22px;
             filter: brightness(0);
         }
 
         .sidebar-header span {
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            font-size: 1rem;
             color: var(--text-main);
         }
 
         .nav-section-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 800;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 1.5rem 0.8rem 0.8rem;
-            opacity: 0.6;
+            margin: 2rem 1rem 0.8rem;
+            opacity: 0.5;
         }
 
         .nav-menu {
             list-style: none;
             flex-grow: 1;
+            padding: 0 0.5rem;
         }
 
         .nav-item {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 0.85rem 1rem;
+            padding: 0.8rem 1.2rem;
             color: var(--text-muted);
             text-decoration: none;
-            border-radius: 14px;
+            border-radius: 12px;
             transition: var(--transition-smooth);
             font-weight: 600;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .nav-link:hover {
             color: var(--text-main);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        [data-theme="light"] .nav-link:hover {
-            background: rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .nav-link.active {
             background: var(--accent);
             color: #000 !important;
-            box-shadow: 0 8px 16px rgba(175, 255, 0, 0.15);
+            box-shadow: 0 10px 20px rgba(175, 255, 0, 0.2);
         }
 
         .nav-link i {
-            font-size: 1.1rem;
-            width: 24px;
-            opacity: 0.7;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            opacity: 0.8;
         }
 
-        .nav-link.active i {
-            opacity: 1;
+        /* Dashboard Cards - Organization */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            padding: 3rem;
+            width: calc(100% - var(--sidebar-width));
+            max-width: 1600px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            padding: 1.8rem;
+            border-radius: 24px;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(175, 255, 0, 0.02);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(175, 255, 0, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 1.2px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .stat-trend {
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* Sidebar Pro Card */
@@ -324,66 +394,6 @@
         .user-pill .role {
             font-size: 0.65rem;
             color: var(--text-muted);
-        }
-
-        .main-content {
-            margin-left: var(--sidebar-width);
-            margin-top: var(--topbar-height);
-            padding: 2.5rem;
-            width: calc(100% - var(--sidebar-width));
-        }
-
-
-        .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 28px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background: rgba(175, 255, 0, 0.03);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
-            background: rgba(175, 255, 0, 0.1);
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-        }
-
-        .stat-trend {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .trend-up { color: #25D366; }
@@ -644,34 +654,42 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-label">Total Visitors</div>
-                    <div class="stat-value">24.8k</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Visitors</div>
+                        <div class="stat-value">24.8k</div>
+                    </div>
                     <div class="stat-trend trend-up">
                         <i class="fas fa-arrow-up"></i> 12.5% vs last month
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-envelope"></i></div>
-                    <div class="stat-label">New Inquiries</div>
-                    <div class="stat-value">52</div>
+                    <div class="stat-info">
+                        <div class="stat-label">New Inquiries</div>
+                        <div class="stat-value">52</div>
+                    </div>
                     <div class="stat-trend trend-up">
                         <i class="fas fa-arrow-up"></i> 8.2% vs last week
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
-                    <div class="stat-label">Active Projects</div>
-                    <div class="stat-value">14</div>
-                    <div class="stat-trend">
-                        <span style="color: var(--text-muted);">4 completed recently</span>
+                    <div class="stat-info">
+                        <div class="stat-label">Active Projects</div>
+                        <div class="stat-value">14</div>
+                    </div>
+                    <div class="stat-trend trend-down">
+                        <i class="fas fa-arrow-down"></i> 2 projects completed
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
-                    <div class="stat-label">Conv. Rate</div>
-                    <div class="stat-value">4.2%</div>
-                    <div class="stat-trend trend-down">
-                        <i class="fas fa-arrow-down"></i> 0.5% vs last month
+                    <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Conv. Rate</div>
+                        <div class="stat-value">3.4%</div>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 1.2% this week
                     </div>
                 </div>
             </div>
