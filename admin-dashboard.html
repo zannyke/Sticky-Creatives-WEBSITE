@@ -371,34 +371,34 @@
 
     <aside class="sidebar">
         <div class="sidebar-logo">
-            <i class="fas fa-shapes"></i>
-            <span>Business</span>
+            <img src="sticky-icon.png" alt="Logo" style="height: 28px; filter: none;">
+            <span>Sticky Admin</span>
         </div>
 
         <div class="nav-group">
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a class="nav-link active">
-                        <i class="fas fa-chart-pie"></i>
-                        <span>Analytics</span>
+                    <a class="nav-link active" onclick="showView('dashboard')">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span>Products</span>
+                    <a class="nav-link" onclick="showView('portfolio')">
+                        <i class="fas fa-rocket"></i>
+                        <span>Portfolio</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-envelope"></i>
-                        <span>Messages</span>
+                    <a class="nav-link" onclick="showView('leads')">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Leads</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-users"></i>
-                        <span>Customers</span>
+                    <a class="nav-link" onclick="showView('clients')">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Clients</span>
                     </a>
                 </li>
             </ul>
@@ -424,7 +424,7 @@
         <div class="sidebar-bottom">
             <div class="help-card">
                 <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Help">
-                <p>Need help? feel free to contact</p>
+                <p>Manage Sticky Creatives with ease. Support is one click away.</p>
                 <button class="btn-help">Get support</button>
             </div>
         </div>
@@ -433,11 +433,11 @@
     <main class="main-container">
         <header class="header">
             <div class="header-title">
-                <h1>Analytics</h1>
+                <h1>Agency Insights</h1>
             </div>
             <div class="header-actions">
                 <div class="date-picker">
-                    <span>01.08.2022 - 31.08.2022</span>
+                    <span>Last 30 Days</span>
                     <i class="far fa-calendar"></i>
                 </div>
                 <div class="theme-toggle" onclick="toggleTheme()">
@@ -449,8 +449,8 @@
                     </div>
                 </div>
                 <div class="user-profile">
-                    <span>Kristi Kamilikova</span>
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="User">
+                    <span>Admin Manager</span>
+                    <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">AD</div>
                 </div>
             </div>
         </header>
@@ -459,32 +459,32 @@
             <!-- Row 1 -->
             <div class="card card-orders">
                 <div class="card-header">
-                    <span class="card-title">Orders</span>
-                    <i class="far fa-square"></i>
+                    <span class="card-title">Project Requests</span>
+                    <i class="far fa-paper-plane"></i>
                 </div>
-                <div class="card-value">201</div>
+                <div class="card-value">124</div>
                 <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 8.2% <span>since last month</span>
+                    <i class="fas fa-arrow-up"></i> 12.5% <span>from WhatsApp</span>
                 </div>
             </div>
 
             <div class="card card-approved">
                 <div class="card-header">
-                    <span class="card-title">Approved</span>
-                    <i class="far fa-check-square"></i>
+                    <span class="card-title">Live Projects</span>
+                    <i class="far fa-check-circle"></i>
                 </div>
-                <div class="card-value">36</div>
+                <div class="card-value">18</div>
                 <div class="card-trend trend-up">
-                    <i class="fas fa-arrow-up"></i> 3.4% <span>since last month</span>
+                    <i class="fas fa-arrow-up"></i> 2 new <span>this week</span>
                 </div>
             </div>
 
             <div class="card card-users">
                 <div class="card-header">
-                    <span class="card-title">Users</span>
-                    <i class="far fa-user"></i>
+                    <span class="card-title">Site Traffic</span>
+                    <i class="far fa-chart-bar"></i>
                 </div>
-                <div class="card-value">4.890</div>
+                <div class="card-value">12.4k</div>
                 <div style="height: 60px; margin-top: 10px;">
                     <canvas id="usersChart"></canvas>
                 </div>
@@ -492,10 +492,10 @@
 
             <div class="card card-subscriptions">
                 <div class="card-header">
-                    <span class="card-title">Subscriptions</span>
-                    <i class="far fa-bell"></i>
+                    <span class="card-title">Client Retention</span>
+                    <i class="far fa-heart"></i>
                 </div>
-                <div class="card-value">1.201</div>
+                <div class="card-value">94%</div>
                 <div style="height: 60px; margin-top: 10px;">
                     <canvas id="subsChart"></canvas>
                 </div>
@@ -504,31 +504,32 @@
             <!-- Row 2 -->
             <div class="card card-total">
                 <div class="card-header">
-                    <span class="card-title">Month total</span>
+                    <span class="card-title">Monthly Revenue</span>
                     <i class="fas fa-dollar-sign"></i>
                 </div>
-                <div class="card-value">25410</div>
-                <div class="card-trend trend-down">
-                    <i class="fas fa-arrow-down"></i> 1.2% <span>since last month</span>
+                <div class="card-value">$18,450</div>
+                <div class="card-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 4.2% <span>growth</span>
                 </div>
             </div>
 
             <div class="card card-revenue">
                 <div class="card-header">
-                    <span class="card-title">Revenue</span>
-                    <i class="far fa-credit-card"></i>
+                    <span class="card-title">Avg. Project Size</span>
+                    <i class="far fa-handshake"></i>
                 </div>
-                <div class="card-value">1352</div>
-                <div class="card-trend trend-down">
-                    <i class="fas fa-arrow-down"></i> 1.2% <span>since last month</span>
+                <div class="card-value">$2,800</div>
+                <div class="card-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 1.2% <span>since last month</span>
                 </div>
             </div>
 
             <div class="card card-sales">
                 <div class="card-header">
-                    <span class="card-title">Sales dynamics</span>
+                    <span class="card-title">Lead Generation Dynamics</span>
                     <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                        <option>2021</option>
+                        <option>Weekly View</option>
+                        <option>Monthly View</option>
                     </select>
                 </div>
                 <div style="height: 250px;">
@@ -538,34 +539,34 @@
 
             <div class="card card-invoices">
                 <div class="card-header">
-                    <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                    <i class="far fa-file-invoice-dollar" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
                     <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #E0E4FF; position:relative;">
-                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 80% 0, 80% 80%, 0 80%);"></div>
+                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 85% 0, 85% 85%, 0 85%);"></div>
                     </div>
                 </div>
-                <span class="card-title">Paid Invoices</span>
-                <div class="card-value" style="margin-top: 0.5rem;">$30256.23</div>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">Current Financial Year</span>
+                <span class="card-title">Billed This Year</span>
+                <div class="card-value" style="margin-top: 0.5rem;">$142,560.00</div>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Sticky Creatives FY 2026</span>
             </div>
 
             <div class="card card-funds">
                 <div class="card-header">
-                    <i class="far fa-briefcase" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
+                    <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
                     <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FFF1EB; position:relative;">
-                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 60% 0, 60% 60%, 0 60%);"></div>
+                        <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 72% 0, 72% 72%, 0 72%);"></div>
                     </div>
                 </div>
-                <span class="card-title">Funds received</span>
-                <div class="card-value" style="margin-top: 0.5rem;">$150256.23</div>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">Current Financial Year</span>
+                <span class="card-title">Net Profit</span>
+                <div class="card-value" style="margin-top: 0.5rem;">$85,420.50</div>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Net agency earnings</span>
             </div>
 
             <!-- Row 3 -->
             <div class="card card-activity">
                 <div class="card-header">
-                    <span class="card-title">Overall User Activity</span>
+                    <span class="card-title">Portfolio Performance</span>
                     <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                        <option>2021</option>
+                        <option>2026</option>
                     </select>
                 </div>
                 <div style="height: 250px;">
@@ -575,68 +576,68 @@
 
             <div class="card card-table">
                 <div class="card-header">
-                    <span class="card-title">Customer order</span>
-                    <i class="fas fa-redo-alt" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
+                    <span class="card-title">Recent Agency Leads</span>
+                    <i class="fas fa-sync" style="font-size: 0.8rem; color: var(--text-muted); cursor:pointer;"></i>
                 </div>
                 <div style="overflow-x: auto;">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Profile</th>
-                                <th>Address</th>
+                                <th>Client Profile</th>
+                                <th>Project Type</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                <th>Price</th>
+                                <th>Budget</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <div class="user-cell">
-                                        <img src="https://i.pravatar.cc/150?u=1" alt="U1">
-                                        <span>Press</span>
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">SC</div>
+                                        <span>Sticky Cafe</span>
                                     </div>
                                 </td>
-                                <td>London</td>
-                                <td>22.08.2022</td>
-                                <td><span class="status-badge status-delivered">Delivered</span></td>
-                                <td><strong>$920</strong></td>
+                                <td>Branding & Logo</td>
+                                <td>May 12, 2026</td>
+                                <td><span class="status-badge status-delivered">Live</span></td>
+                                <td><strong>$1,200</strong></td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="user-cell">
-                                        <img src="https://i.pravatar.cc/150?u=2" alt="U2">
-                                        <span>Marina</span>
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">ET</div>
+                                        <span>Eco Tech</span>
                                     </div>
                                 </td>
-                                <td>Man city</td>
-                                <td>24.08.2022</td>
-                                <td><span class="status-badge status-processed">Processed</span></td>
-                                <td><strong>$452</strong></td>
+                                <td>E-commerce Site</td>
+                                <td>May 10, 2026</td>
+                                <td><span class="status-badge status-processed">Design</span></td>
+                                <td><strong>$4,500</strong></td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="user-cell">
-                                        <img src="https://i.pravatar.cc/150?u=3" alt="U3">
-                                        <span>Alex</span>
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">AL</div>
+                                        <span>Art Loft</span>
                                     </div>
                                 </td>
-                                <td>Unknown</td>
-                                <td>18.08.2022</td>
-                                <td><span class="status-badge status-cancelled">Cancelled</span></td>
-                                <td><strong>$1000</strong></td>
+                                <td>Social Management</td>
+                                <td>May 08, 2026</td>
+                                <td><span class="status-badge status-cancelled">On Hold</span></td>
+                                <td><strong>$800</strong></td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="user-cell">
-                                        <img src="https://i.pravatar.cc/150?u=4" alt="U4">
-                                        <span>Robert</span>
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">VZ</div>
+                                        <span>Vortex Zero</span>
                                     </div>
                                 </td>
-                                <td>New York</td>
-                                <td>03.08.2022</td>
-                                <td><span class="status-badge status-delivered">Delivered</span></td>
-                                <td><strong>$1235</strong></td>
+                                <td>UI/UX Overhaul</td>
+                                <td>May 05, 2026</td>
+                                <td><span class="status-badge status-delivered">Live</span></td>
+                                <td><strong>$3,200</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -683,13 +684,13 @@
             salesChart = new Chart(ctxSales, {
                 type: 'bar',
                 data: {
-                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                     datasets: [{
-                        label: 'Sales',
-                        data: [45, 60, 35, 75, 40, 90, 55, 80, 45, 100, 65, 85],
+                        label: 'Leads',
+                        data: [12, 19, 15, 25, 22, 30, 28],
                         backgroundColor: '#5C67F7',
                         borderRadius: 5,
-                        barThickness: 8
+                        barThickness: 12
                     }]
                 },
                 options: {
@@ -714,13 +715,14 @@
             activityChart = new Chart(ctxActivity, {
                 type: 'line',
                 data: {
-                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
                     datasets: [{
-                        data: [200, 450, 300, 600, 400, 750, 500],
+                        data: [5, 8, 12, 10, 18, 15, 22],
                         borderColor: '#9B51E0',
                         backgroundColor: 'transparent',
                         borderWidth: 3,
-                        pointRadius: 0,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#9B51E0',
                         tension: 0.4
                     }]
                 },
@@ -746,9 +748,9 @@
             usersChart = new Chart(ctxUsers, {
                 type: 'doughnut',
                 data: {
-                    labels: ['New', 'Returning', 'Inactive'],
+                    labels: ['Search', 'Social', 'Direct'],
                     datasets: [{
-                        data: [62, 26, 12],
+                        data: [45, 35, 20],
                         backgroundColor: ['#F2994A', '#F2C94C', '#EB5757'],
                         borderWidth: 0,
                         cutout: '75%'
@@ -766,9 +768,9 @@
             subsChart = new Chart(ctxSubs, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Paid', 'Trial'],
+                    labels: ['Recurring', 'One-time'],
                     datasets: [{
-                        data: [70, 30],
+                        data: [85, 15],
                         backgroundColor: ['#2D9CDB', '#56CCF2'],
                         borderWidth: 0,
                         cutout: '75%'
@@ -787,15 +789,26 @@
             const gridColor = isDark ? '#242831' : '#E8EBF1';
             const textColor = isDark ? '#9499A5' : '#8E95A2';
 
-            [salesChart, activityChart].forEach(chart => {
-                chart.options.scales.y.grid.color = gridColor;
-                chart.options.scales.y.ticks.color = textColor;
-                chart.options.scales.x.ticks.color = textColor;
-                chart.update();
-            });
+            if(salesChart) {
+                salesChart.options.scales.y.grid.color = gridColor;
+                salesChart.options.scales.y.ticks.color = textColor;
+                salesChart.options.scales.x.ticks.color = textColor;
+                salesChart.update();
+            }
+            if(activityChart) {
+                activityChart.options.scales.y.grid.color = gridColor;
+                activityChart.options.scales.y.ticks.color = textColor;
+                activityChart.options.scales.x.ticks.color = textColor;
+                activityChart.update();
+            }
         }
 
         window.onload = initCharts;
+
+        function showView(viewId) {
+            console.log("Switching to view:", viewId);
+            // This is a placeholder for view switching logic if needed
+        }
     </script>
 </body>
 </html>
