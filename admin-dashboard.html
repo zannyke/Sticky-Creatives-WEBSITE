@@ -469,10 +469,83 @@
         .status-processed { background: rgba(52, 152, 219, 0.1); color: #3498DB; }
         .status-cancelled { background: rgba(231, 76, 60, 0.1); color: #E74C3C; }
 
-        .user-cell {
-            display: flex;
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 70px;
+                padding: 1rem 0.5rem;
+            }
+            .sidebar .logo span, 
+            .sidebar .nav-link span,
+            .sidebar .sidebar-bottom {
+                display: none;
+            }
+            .sidebar .nav-link {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+            .main-container {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 260px;
+                z-index: 2000;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .sidebar.mobile-active {
+                transform: translateX(0);
+            }
+            .sidebar .logo span, 
+            .sidebar .nav-link span,
+            .sidebar .sidebar-bottom {
+                display: flex;
+            }
+            .main-container {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            .header {
+                padding: 1rem;
+            }
+            .header-actions .date-picker,
+            .header-actions .user-profile span {
+                display: none;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .card-sales, .card-activity, .card-table {
+                grid-column: span 1 !important;
+            }
+            .mobile-toggle {
+                display: flex !important;
+            }
+        }
+
+        .mobile-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            background: var(--nav-active-bg);
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--accent-primary);
+            margin-right: 15px;
+        }
+
+        .overlay-active .main-container::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1500;
         }
 
         .user-cell img {
@@ -557,7 +630,10 @@
 
     <main class="main-container">
         <header class="header">
-            <div class="header-title">
+            <div class="header-title" style="display: flex; align-items: center;">
+                <div class="mobile-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
                 <h1>Agency Insights</h1>
             </div>
             <div class="header-actions">
@@ -1379,6 +1455,37 @@
             document.getElementById('ticket-id-display').innerText = ticketId;
             document.getElementById('ticket-success').style.display = 'block';
         }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('mobile-active');
+            document.body.classList.toggle('overlay-active');
+        }
+
+        function closeSidebar() {
+            document.querySelector('.sidebar').classList.remove('mobile-active');
+            document.body.classList.remove('overlay-active');
+        }
+
+        // Auto-close sidebar on mobile after clicking a link
+        const originalShowView = showView;
+        showView = function(viewId) {
+            originalShowView(viewId);
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        };
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.mobile-toggle');
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('mobile-active') && 
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                closeSidebar();
+            }
+        });
 
         function logout(e) {
             e.preventDefault();
