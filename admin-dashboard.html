@@ -12,12 +12,22 @@
     <style>
         :root {
             --sidebar-width: 280px;
-            --topbar-height: 80px;
-            --sidebar-bg: var(--bg-secondary);
+            --topbar-height: 85px;
+            --sidebar-bg: #0F0F12; /* Deeper dark for sidebar */
             --content-bg: var(--bg-main);
             --card-bg: var(--glass-bg);
             --accent: var(--primary);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --sidebar-bg: #FFFFFF;
+            --sidebar-border: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --sidebar-bg: #0F0F12;
+            --sidebar-border: rgba(255, 255, 255, 0.05);
         }
 
         body {
@@ -29,26 +39,11 @@
             color: var(--text-main);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-
         /* Sidebar Styles */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--sidebar-bg);
-            border-right: 1px solid var(--glass-border);
+            border-right: 1px solid var(--sidebar-border);
             height: 100vh;
             position: fixed;
             left: 0;
@@ -57,19 +52,30 @@
             flex-direction: column;
             z-index: 1000;
             transition: var(--transition-smooth);
-            padding: 1.5rem;
+            padding: 2rem 1.2rem;
         }
 
         .sidebar-header {
-            padding: 1rem 0.5rem 3rem;
+            padding: 0 0.8rem 2.5rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
+        .sidebar-header .logo-box {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(175, 255, 0, 0.2);
+        }
+
         .sidebar-header img {
-            height: 35px;
-            filter: drop-shadow(0 0 10px var(--primary-glow));
+            height: 24px;
+            filter: brightness(0);
         }
 
         .sidebar-header span {
@@ -77,9 +83,17 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 1.1rem;
-            background: linear-gradient(to right, var(--text-main), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
+        }
+
+        .nav-section-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 1.5rem 0.8rem 0.8rem;
+            opacity: 0.6;
         }
 
         .nav-menu {
@@ -88,206 +102,237 @@
         }
 
         .nav-item {
-            margin-bottom: 0.5rem;
+            margin-bottom: 4px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 1rem 1.2rem;
+            gap: 12px;
+            padding: 0.85rem 1rem;
             color: var(--text-muted);
             text-decoration: none;
-            border-radius: 16px;
+            border-radius: 14px;
             transition: var(--transition-smooth);
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            border: 1px solid transparent;
+            font-size: 0.9rem;
         }
 
         .nav-link:hover {
-            background: rgba(175, 255, 0, 0.05);
             color: var(--text-main);
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] .nav-link:hover {
+            background: rgba(0, 0, 0, 0.03);
         }
 
         .nav-link.active {
             background: var(--accent);
-            color: #000;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(175, 255, 0, 0.2);
+            color: #000 !important;
+            box-shadow: 0 8px 16px rgba(175, 255, 0, 0.15);
         }
 
         .nav-link i {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             width: 24px;
-            text-align: center;
+            opacity: 0.7;
         }
 
-        .sidebar-footer {
-            margin-top: auto;
-            padding-top: 2rem;
-            border-top: 1px solid var(--glass-border);
+        .nav-link.active i {
+            opacity: 1;
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            margin-bottom: 1rem;
+        /* Sidebar Pro Card */
+        .pro-card {
+            background: linear-gradient(135deg, rgba(175, 255, 0, 0.1) 0%, rgba(175, 255, 0, 0.02) 100%);
+            border: 1px solid rgba(175, 255, 0, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: 800;
-        }
-
-        .user-info h4 {
+        .pro-card h4 {
             font-size: 0.9rem;
-            font-weight: 600;
-            margin: 0;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
 
-        .user-info p {
+        .pro-card p {
             font-size: 0.75rem;
             color: var(--text-muted);
-            margin: 0;
+            margin-bottom: 1rem;
+            line-height: 1.4;
         }
 
-        /* Top Bar */
+        .pro-card .btn-pro {
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .pro-card .btn-pro:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(175, 255, 0, 0.3);
+        }
+
+        /* Top Bar Styles */
         .topbar {
             height: var(--topbar-height);
             position: fixed;
             top: 0;
             right: 0;
             left: var(--sidebar-width);
-            background: rgba(var(--bg-main-rgb, 10, 10, 10), 0.8);
+            background: rgba(var(--bg-main-rgb), 0.7);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--sidebar-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 3rem;
+            padding: 0 2.5rem;
             z-index: 999;
             transition: var(--transition-smooth);
         }
 
-        .search-bar {
-            background: var(--bg-secondary);
-            border: 1px solid var(--glass-border);
-            padding: 0.7rem 1.5rem;
-            border-radius: 100px;
+        .search-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
-            width: 350px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 14px;
+            padding: 0.6rem 1.2rem;
+            width: 400px;
+            gap: 12px;
+            transition: var(--transition-smooth);
         }
 
-        .search-bar input {
+        [data-theme="light"] .search-wrapper {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .search-wrapper i {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .search-wrapper input {
             background: transparent;
             border: none;
             color: var(--text-main);
             width: 100%;
+            font-size: 0.9rem;
             font-family: inherit;
         }
 
-        .search-bar input:focus {
+        .search-wrapper input:focus {
             outline: none;
         }
 
-        .topbar-actions {
+        .topbar-right {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
-        .icon-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
+        .action-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--sidebar-border);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-main);
             cursor: pointer;
             transition: var(--transition-smooth);
             position: relative;
         }
 
-        .icon-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
+        [data-theme="light"] .action-icon {
+            background: rgba(0, 0, 0, 0.03);
         }
 
-        .notification-dot {
+        .action-icon:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .pulse-dot {
             position: absolute;
             top: 10px;
             right: 10px;
             width: 8px;
             height: 8px;
-            background: var(--accent);
+            background: #ff4d4d;
             border-radius: 50%;
-            border: 2px solid var(--bg-secondary);
+            border: 2px solid var(--bg-main);
         }
 
-        /* Main Content Area */
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.4rem;
+            padding-right: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 100px;
+            margin-left: 0.5rem;
+        }
+
+        .user-pill .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #000;
+            font-size: 0.75rem;
+        }
+
+        .user-pill .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-pill .name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .user-pill .role {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
         .main-content {
             margin-left: var(--sidebar-width);
             margin-top: var(--topbar-height);
-            flex-grow: 1;
-            padding: 3rem;
-            max-width: 1600px;
+            padding: 2.5rem;
             width: calc(100% - var(--sidebar-width));
         }
 
-        .view-section {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        .section-header {
-            margin-bottom: 2.5rem;
-        }
-
-        .section-header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* Dashboard Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
 
         .stat-card {
             background: var(--card-bg);
@@ -508,46 +553,56 @@
 
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="sticky-icon.png" alt="Logo">
-            <span>Sticky Admin</span>
+            <div class="logo-box">
+                <img src="sticky-icon.png" alt="Logo">
+            </div>
+            <span>StickySam</span>
         </div>
         
+        <div class="nav-section-label">General</div>
         <nav class="nav-menu">
             <div class="nav-item">
                 <a class="nav-link active" onclick="showView('dashboard')">
-                    <i class="fas fa-grid-2"></i>
+                    <i class="fas fa-th-large"></i>
                     <span>Overview</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a class="nav-link" onclick="showView('projects')">
-                    <i class="fas fa-rocket"></i>
+                    <i class="fas fa-briefcase"></i>
                     <span>Portfolio</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a class="nav-link" onclick="showView('inquiries')">
-                    <i class="fas fa-comment-alt-lines"></i>
+                    <i class="fas fa-envelope"></i>
                     <span>Inquiries</span>
                 </a>
             </div>
+            
+            <div class="nav-section-label">System</div>
             <div class="nav-item">
                 <a class="nav-link" onclick="showView('analytics')">
-                    <i class="fas fa-chart-mixed"></i>
+                    <i class="fas fa-chart-bar"></i>
                     <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onclick="showView('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
                 </a>
             </div>
         </nav>
 
-        <div class="sidebar-footer">
-            <div class="user-profile">
-                <div class="user-avatar">AD</div>
-                <div class="user-info">
-                    <h4>Admin User</h4>
-                    <p>Super Admin</p>
-                </div>
-            </div>
-            <a href="admin.html" class="nav-link" style="color: #ff4d4d;">
+        <div class="pro-card">
+            <h4>Upgrade to Pro</h4>
+            <p>Get advanced analytics and custom domain support.</p>
+            <button class="btn-pro">Go Premium</button>
+        </div>
+
+        <div class="sidebar-footer" style="margin-top: 2rem;">
+            <a href="admin.html" class="nav-link" style="color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.1);">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Sign Out</span>
             </a>
@@ -555,22 +610,26 @@
     </aside>
 
     <header class="topbar">
-        <div class="search-bar">
-            <i class="fas fa-search" style="color: var(--text-muted);"></i>
-            <input type="text" placeholder="Search analytics, inquiries...">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search data, clients, projects...">
         </div>
 
-        <div class="topbar-actions">
-            <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        <div class="topbar-right">
+            <div class="action-icon" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
                 <i class="fas fa-moon" id="theme-icon"></i>
-            </button>
-            <button class="icon-btn" title="Notifications">
+            </div>
+            <div class="action-icon" title="Notifications">
                 <i class="fas fa-bell"></i>
-                <span class="notification-dot"></span>
-            </button>
-            <button class="icon-btn" title="Settings">
-                <i class="fas fa-cog"></i>
-            </button>
+                <div class="pulse-dot"></div>
+            </div>
+            <div class="user-pill">
+                <div class="avatar">AD</div>
+                <div class="details">
+                    <span class="name">Admin User</span>
+                    <span class="role">Chief Editor</span>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -734,6 +793,28 @@
                 <i class="fas fa-chart-network" style="font-size: 4rem; color: var(--accent); margin-bottom: 2rem;"></i>
                 <h2>Integrating Live Telemetry</h2>
                 <p style="color: var(--text-muted);">Real-time tracking modules are currently being synchronized with the global node network.</p>
+            </div>
+        </section>
+
+        <!-- Settings View -->
+        <section id="settings-view" class="view-section">
+            <div class="section-header">
+                <h1>Admin Settings</h1>
+                <p>Configure portal preferences and security.</p>
+            </div>
+            <div class="table-card">
+                <h3 style="margin-bottom: 1.5rem;">Security</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="search-wrapper" style="width: 100%; justify-content: space-between;">
+                        <span>Enable Two-Factor Authentication</span>
+                        <input type="checkbox" style="width: auto;">
+                    </div>
+                    <div class="search-wrapper" style="width: 100%; justify-content: space-between;">
+                        <span>Session Timeout (Minutes)</span>
+                        <input type="number" value="30" style="width: 60px; text-align: center;">
+                    </div>
+                    <button class="btn" style="width: fit-content; margin-top: 1rem;">Update Security Policy</button>
+                </div>
             </div>
         </section>
     </main>
