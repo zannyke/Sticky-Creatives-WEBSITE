@@ -583,7 +583,7 @@
         <div id="dashboard-view" class="view-section active">
             <div class="dashboard-grid">
                 <!-- Row 1 -->
-                <div class="card card-orders">
+                <div class="card card-orders" onclick="showDetail('requests')">
                     <div class="card-header">
                         <span class="card-title">Project Requests</span>
                         <i class="far fa-paper-plane"></i>
@@ -594,7 +594,7 @@
                     </div>
                 </div>
 
-                <div class="card card-approved">
+                <div class="card card-approved" onclick="showDetail('live')">
                     <div class="card-header">
                         <span class="card-title">Live Projects</span>
                         <i class="far fa-check-circle"></i>
@@ -605,7 +605,7 @@
                     </div>
                 </div>
 
-                <div class="card card-users">
+                <div class="card card-users" onclick="showDetail('traffic')">
                     <div class="card-header">
                         <span class="card-title">Site Traffic</span>
                         <i class="far fa-chart-bar"></i>
@@ -616,7 +616,7 @@
                     </div>
                 </div>
 
-                <div class="card card-subscriptions">
+                <div class="card card-subscriptions" onclick="showDetail('retention')">
                     <div class="card-header">
                         <span class="card-title">Client Retention</span>
                         <i class="far fa-heart"></i>
@@ -628,10 +628,10 @@
                 </div>
 
                 <!-- Row 2 -->
-                <div class="card card-sales">
+                <div class="card card-sales" onclick="showChartDetail('sales')">
                     <div class="card-header">
                         <span class="card-title">Lead Generation Dynamics</span>
-                        <div class="time-controls">
+                        <div class="time-controls" onclick="event.stopPropagation()">
                             <button class="time-btn active" onclick="updateSalesData('day')">Day</button>
                             <button class="time-btn" onclick="updateSalesData('week')">Week</button>
                             <button class="time-btn" onclick="updateSalesData('month')">Month</button>
@@ -642,7 +642,7 @@
                     </div>
                 </div>
 
-                <div class="card card-activity">
+                <div class="card card-activity" onclick="showChartDetail('portfolio')">
                     <div class="card-header">
                         <span class="card-title">Portfolio Performance</span>
                         <div class="time-controls">
@@ -816,6 +816,39 @@
             
             <div class="dashboard-grid" id="client-projects-list">
                 <!-- Projects will be injected here -->
+            </div>
+        </div>
+
+        <!-- Data Detail View (for Metric Cards) -->
+        <div id="data-detail-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('dashboard')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                <h2 id="detail-data-title" style="margin-left: 1.5rem;">Data Insights</h2>
+            </div>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <div id="detail-data-content">
+                    <!-- Dynamic data table or list injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Detail View (Full Screen Graph) -->
+        <div id="chart-detail-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('dashboard')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                <h2 id="detail-chart-title" style="margin-left: 1.5rem;">Advanced Analytics</h2>
+                <div class="time-controls" style="margin-left: auto;">
+                    <select id="chart-type-selector" class="form-control" style="width: 150px; padding: 0.4rem;" onchange="changeChartType()">
+                        <option value="line">Line Chart</option>
+                        <option value="bar" selected>Bar Chart</option>
+                        <option value="radar">Radar Chart</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card" style="height: 500px; padding: 2rem;">
+                <canvas id="detailChart"></canvas>
             </div>
         </div>
 
@@ -1110,12 +1143,88 @@
             event.target.classList.add('active');
         }
 
+        let detailChartInstance = null;
+        let currentChartId = '';
+
+        function showDetail(type) {
+            const container = document.getElementById('detail-data-content');
+            const titleEl = document.getElementById('detail-data-title');
+            
+            const details = {
+                requests: { title: "Recent Project Requests", data: ["Logo Design - Sticky Cafe", "Web Overhaul - Eco Tech", "Social Media - Art Loft"] },
+                live: { title: "Current Live Projects", data: ["E-commerce App - Vortex", "Branding - Green Space", "SEO - Tech Nova"] },
+                traffic: { title: "Detailed Traffic Sources", data: ["Google Search: 45%", "Direct Visit: 25%", "WhatsApp: 20%", "Instagram: 10%"] },
+                retention: { title: "Client Retention Metrics", data: ["Returning Clients: 85%", "New Referrals: 15%", "Satisfaction Rate: 98%"] }
+            };
+
+            const info = details[type];
+            titleEl.innerText = info.title;
+            container.innerHTML = `<ul style="list-style: none; padding: 1rem;">${info.data.map(i => `<li style="padding: 1rem; border-bottom: 1px solid var(--border-color); color: var(--text-main); font-weight: 500;">${i}</li>`).join('')}</ul>`;
+            
+            showView('data-detail');
+        }
+
+        function showChartDetail(chartId) {
+            currentChartId = chartId;
+            const titleEl = document.getElementById('detail-chart-title');
+            titleEl.innerText = chartId === 'sales' ? "Lead Generation Dynamics - Advanced View" : "Portfolio Performance - Advanced View";
+            
+            showView('chart-detail');
+            
+            // Wait for animation
+            setTimeout(() => {
+                renderDetailChart('bar');
+            }, 400);
+        }
+
+        function renderDetailChart(type) {
+            const ctx = document.getElementById('detailChart').getContext('2d');
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            const gridColor = isDark ? '#242831' : '#E8EBF1';
+            const textColor = isDark ? '#9499A5' : '#8E95A2';
+
+            if (detailChartInstance) detailChartInstance.destroy();
+
+            const data = currentChartId === 'sales' ? salesData.month : activityData.year;
+            const labels = currentChartId === 'sales' ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] : ['2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+
+            detailChartInstance = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Detailed Metrics',
+                        data: data,
+                        backgroundColor: type === 'line' ? 'transparent' : '#5C67F7',
+                        borderColor: '#5C67F7',
+                        borderWidth: 3,
+                        pointRadius: type === 'line' ? 5 : 0,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, labels: { color: textColor } } },
+                    scales: {
+                        y: { grid: { color: gridColor }, ticks: { color: textColor } },
+                        x: { grid: { display: false }, ticks: { color: textColor } }
+                    }
+                }
+            });
+        }
+
+        function changeChartType() {
+            const type = document.getElementById('chart-type-selector').value;
+            renderDetailChart(type);
+        }
+
         function showClientProjects(clientName) {
             const container = document.getElementById('client-projects-list');
             const nameEl = document.getElementById('detail-client-name');
             
             nameEl.innerText = clientName + " Projects";
-            container.innerHTML = ''; // Clear previous
+            container.innerHTML = ''; 
             
             const projects = [
                 { title: "Branding & Identity", date: "May 2026", status: "Live", icon: "fa-palette" },
@@ -1150,13 +1259,23 @@
         function selectDate(dateStr) {
             document.querySelector('.date-picker span').innerText = dateStr;
             document.getElementById('calendar-modal').style.display = 'none';
-            // Mock data update
-            alert("Dashboard data updated for: " + dateStr);
+            // Mock data update logic here
         }
 
         function getSupport() {
             const ticketId = "STK-" + Math.floor(Math.random() * 10000);
-            alert("Support Ticket Created: " + ticketId + "\n\nAn agent from Sticky Creatives will contact you shortly via email or WhatsApp.");
+            const overlay = document.createElement('div');
+            overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(5px);";
+            overlay.innerHTML = `
+                <div class="card" style="width:400px; padding:3rem; text-align:center;">
+                    <i class="fas fa-check-circle" style="font-size:4rem; color:var(--accent-success); margin-bottom:1.5rem;"></i>
+                    <h2>Support Ticket Created</h2>
+                    <p style="color:var(--text-muted); margin:1rem 0;">Ticket ID: <strong>${ticketId}</strong></p>
+                    <p>Our team will contact you within 2 hours.</p>
+                    <button class="btn-help" style="margin-top:2rem; width:100%;" onclick="this.parentElement.parentElement.remove()">Close</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
         }
 
         function logout(e) {
