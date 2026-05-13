@@ -221,10 +221,35 @@
             font-size: 0.9rem;
         }
 
-        .nav-link.active {
+        /* Time Controls for Graphs */
+        .time-controls {
+            display: flex;
             background: var(--nav-active-bg);
-            color: var(--nav-active-text);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 4px;
+            border-radius: 8px;
+            gap: 4px;
+        }
+
+        .time-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .time-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        .time-btn.active {
+            background: var(--bg-card);
+            color: var(--accent-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .nav-link i {
@@ -525,7 +550,7 @@
             <div class="help-card">
                 <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Help">
                 <p>Manage Sticky Creatives with ease. Support is one click away.</p>
-                <button class="btn-help">Get support</button>
+                <button class="btn-help" onclick="getSupport()">Get support</button>
             </div>
         </div>
     </aside>
@@ -536,7 +561,7 @@
                 <h1>Agency Insights</h1>
             </div>
             <div class="header-actions">
-                <div class="date-picker">
+                <div class="date-picker" onclick="openCalendar()">
                     <span>Last 30 Days</span>
                     <i class="far fa-calendar"></i>
                 </div>
@@ -606,47 +631,25 @@
                 <div class="card card-sales">
                     <div class="card-header">
                         <span class="card-title">Lead Generation Dynamics</span>
-                        <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                            <option>Weekly View</option>
-                            <option>Monthly View</option>
-                        </select>
+                        <div class="time-controls">
+                            <button class="time-btn active" onclick="updateSalesData('day')">Day</button>
+                            <button class="time-btn" onclick="updateSalesData('week')">Week</button>
+                            <button class="time-btn" onclick="updateSalesData('month')">Month</button>
+                        </div>
                     </div>
                     <div style="height: 250px;">
                         <canvas id="salesChart"></canvas>
                     </div>
                 </div>
 
-                <div class="card card-invoices">
-                    <div class="card-header">
-                        <i class="far fa-file-invoice-dollar" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
-                        <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #E0E4FF; position:relative;">
-                            <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-primary); clip-path: polygon(0 0, 85% 0, 85% 85%, 0 85%);"></div>
-                        </div>
-                    </div>
-                    <span class="card-title">Billed This Year</span>
-                    <div class="card-value" style="margin-top: 0.5rem;">$142,560.00</div>
-                    <span style="font-size: 0.7rem; color: var(--text-muted);">Sticky Creatives FY 2026</span>
-                </div>
-
-                <div class="card card-funds">
-                    <div class="card-header">
-                        <i class="far fa-wallet" style="font-size: 1.5rem; color: var(--accent-secondary);"></i>
-                        <div style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FFF1EB; position:relative;">
-                            <div style="position:absolute; inset:-3px; border-radius:50%; border: 3px solid var(--accent-secondary); clip-path: polygon(0 0, 72% 0, 72% 72%, 0 72%);"></div>
-                        </div>
-                    </div>
-                    <span class="card-title">Net Profit</span>
-                    <div class="card-value" style="margin-top: 0.5rem;">$85,420.50</div>
-                    <span style="font-size: 0.7rem; color: var(--text-muted);">Net agency earnings</span>
-                </div>
-
-                <!-- Row 3 -->
                 <div class="card card-activity">
                     <div class="card-header">
                         <span class="card-title">Portfolio Performance</span>
-                        <select style="border:none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); cursor:pointer; background:transparent;">
-                            <option>2026</option>
-                        </select>
+                        <div class="time-controls">
+                            <button class="time-btn" onclick="updateActivityData('week')">Week</button>
+                            <button class="time-btn active" onclick="updateActivityData('month')">Month</button>
+                            <button class="time-btn" onclick="updateActivityData('year')">Year</button>
+                        </div>
                     </div>
                     <div style="height: 250px;">
                         <canvas id="activityChart"></canvas>
@@ -788,7 +791,7 @@
                         </div>
                     </div>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Working on full branding suite and menu design.</p>
-                    <button class="btn-help" style="width: 100%;">View Projects</button>
+                    <button class="btn-help" style="width: 100%;" onclick="showClientProjects('Sticky Cafe')">View Projects</button>
                 </div>
                 <div class="card">
                     <div class="user-profile" style="margin-bottom: 1rem;">
@@ -799,7 +802,7 @@
                         </div>
                     </div>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">E-commerce development for sustainable products.</p>
-                    <button class="btn-help" style="width: 100%;">View Projects</button>
+                    <button class="btn-help" style="width: 100%;" onclick="showClientProjects('Eco Tech')">View Projects</button>
                 </div>
             </div>
         </div>
@@ -849,6 +852,24 @@
                 <p style="font-size: 0.8rem;">Click to upload image</p>
             </div>
             <button class="btn-help" style="width: 100%; padding: 1rem;">Publish to Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Calendar Modal -->
+    <div id="calendar-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div class="card" style="width: 400px; padding: 2rem;">
+            <div class="header" style="margin-bottom: 1.5rem;">
+                <h2>Select Period</h2>
+                <i class="fas fa-times" style="cursor: pointer;" onclick="document.getElementById('calendar-modal').style.display='none'"></i>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <button class="btn-help" style="width: auto;" onclick="selectDate('May 2026')">May 2026</button>
+                <button class="btn-help" style="width: auto;" onclick="selectDate('April 2026')">April 2026</button>
+                <button class="btn-help" style="width: auto;" onclick="selectDate('March 2026')">March 2026</button>
+                <button class="btn-help" style="width: auto;" onclick="selectDate('Feb 2026')">Feb 2026</button>
+                <button class="btn-help" style="width: auto;" onclick="selectDate('Jan 2026')">Jan 2026</button>
+                <button class="btn-help" style="width: auto;" onclick="selectDate('Q1 2026')">Q1 2026</button>
+            </div>
         </div>
     </div>
 
@@ -1046,17 +1067,63 @@
             }
         }
 
+        // Graph Update Logic
+        const salesData = {
+            day: [12, 19, 15, 25, 22, 30, 28],
+            week: [120, 150, 140, 200, 180, 250, 210],
+            month: [450, 600, 550, 800, 750, 950, 850]
+        };
+
+        const activityData = {
+            week: [5, 8, 12, 10, 18, 15, 22],
+            month: [25, 35, 45, 40, 60, 55, 75],
+            year: [200, 450, 300, 600, 400, 750, 500]
+        };
+
+        function updateSalesData(type) {
+            salesChart.data.datasets[0].data = salesData[type];
+            salesChart.update();
+            
+            // Update UI
+            event.target.parentElement.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function updateActivityData(type) {
+            activityChart.data.datasets[0].data = activityData[type];
+            activityChart.update();
+            
+            // Update UI
+            event.target.parentElement.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function showClientProjects(clientName) {
+            alert("Showing all projects for: " + clientName + "\n\n1. " + clientName + " Branding\n2. " + clientName + " Web Development\n3. " + clientName + " UI Design");
+        }
+
+        function openCalendar() {
+            document.getElementById('calendar-modal').style.display = 'flex';
+        }
+
+        function selectDate(dateStr) {
+            document.querySelector('.date-picker span').innerText = dateStr;
+            document.getElementById('calendar-modal').style.display = 'none';
+            // Mock data update
+            alert("Dashboard data updated for: " + dateStr);
+        }
+
+        function getSupport() {
+            const ticketId = "STK-" + Math.floor(Math.random() * 10000);
+            alert("Support Ticket Created: " + ticketId + "\n\nAn agent from Sticky Creatives will contact you shortly via email or WhatsApp.");
+        }
+
         function logout(e) {
             e.preventDefault();
             if(confirm("Are you sure you want to sign out?")) {
                 window.location.href = "admin.html";
             }
         }
-
-        // Calendar Click Mock
-        document.querySelector('.date-picker').addEventListener('click', () => {
-            alert("Calendar filter integration coming soon in the next update!");
-        });
     </script>
 </body>
 </html>
