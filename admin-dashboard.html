@@ -504,9 +504,14 @@
             .sidebar .sidebar-bottom {
                 display: flex;
             }
+            .sidebar .nav-link {
+                justify-content: flex-start; /* Ensure left alignment */
+                padding: 1rem 1.5rem;
+                gap: 15px;
+            }
             .main-container {
                 margin-left: 0;
-                padding: 1rem 0.75rem; /* Tighter padding for mobile */
+                padding: 1rem 0.5rem; /* Tighter padding for mobile */
             }
             .header {
                 padding: 1rem;
@@ -515,7 +520,7 @@
                 gap: 10px;
             }
             .header-title h1 {
-                font-size: 1.25rem; /* Smaller heading */
+                font-size: 1.15rem; /* Smaller heading */
             }
             .header-actions {
                 width: 100%;
@@ -538,20 +543,60 @@
                 padding: 1rem; /* Reduced card padding on mobile */
             }
             .card-value {
-                font-size: 1.5rem; /* Scaled down metric values */
+                font-size: 1.4rem; /* Scaled down metric values */
             }
             .mobile-toggle {
                 display: flex !important;
             }
-            .data-table-wrapper {
-                overflow-x: auto; /* Enable scrolling for wide tables */
-                -webkit-overflow-scrolling: touch;
+            
+            /* Responsive Table (Stacking) */
+            .data-table thead {
+                display: none; /* Hide headers on mobile */
             }
+            .data-table, .data-table tbody, .data-table tr, .data-table td {
+                display: block;
+                width: 100%;
+            }
+            .data-table tr {
+                margin-bottom: 1rem;
+                border-bottom: 2px solid var(--border-color);
+                padding-bottom: 0.5rem;
+            }
+            .data-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border-bottom: none;
+                font-size: 0.8rem;
+                padding: 0.5rem 0.5rem 0.5rem 50%;
+            }
+            .data-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-left: 0.5rem;
+                font-weight: 700;
+                text-align: left;
+                color: var(--text-muted);
+            }
+            .user-cell {
+                justify-content: flex-end;
+            }
+
             .view-section h2 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             #chart-detail-view .card {
-                height: 350px !important; /* Shorter charts for mobile */
+                height: 300px !important; /* Even shorter charts for small phones */
+            }
+            
+            /* Portfolio scaling */
+            .portfolio-grid {
+                grid-template-columns: 1fr !important; /* Stack images on very small screens */
+            }
+            .portfolio-item {
+                height: 200px; /* Smaller images on mobile */
             }
         }
 
@@ -779,29 +824,29 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">SC</div>
-                                            <span>Sticky Cafe</span>
-                                        </div>
-                                    </td>
-                                    <td>Branding & Logo</td>
-                                    <td>May 12, 2026</td>
-                                    <td><span class="status-badge status-delivered">Live</span></td>
-                                    <td><strong>$1,200</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">ET</div>
-                                            <span>Eco Tech</span>
-                                        </div>
-                                    </td>
-                                    <td>E-commerce Site</td>
-                                    <td>May 10, 2026</td>
-                                    <td><span class="status-badge status-processed">Design</span></td>
-                                    <td><strong>$4,500</strong></td>
-                                </tr>
+                                    <td data-label="Client Profile">
+                                         <div class="user-cell">
+                                             <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">SC</div>
+                                             <span>Sticky Cafe</span>
+                                         </div>
+                                     </td>
+                                     <td data-label="Project Type">Branding & Logo</td>
+                                     <td data-label="Date">May 12, 2026</td>
+                                     <td data-label="Status"><span class="status-badge status-delivered">Live</span></td>
+                                     <td data-label="Budget"><strong>$1,200</strong></td>
+                                 </tr>
+                                 <tr>
+                                     <td data-label="Client Profile">
+                                         <div class="user-cell">
+                                             <div style="width: 32px; height: 32px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">ET</div>
+                                             <span>Eco Tech</span>
+                                         </div>
+                                     </td>
+                                     <td data-label="Project Type">E-commerce Site</td>
+                                     <td data-label="Date">May 10, 2026</td>
+                                     <td data-label="Status"><span class="status-badge status-processed">Design</span></td>
+                                     <td data-label="Budget"><strong>$4,500</strong></td>
+                                 </tr>
                             </tbody>
                         </table>
                     </div>
@@ -863,20 +908,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>John Doe</td>
-                            <td>john@example.com</td>
-                            <td>Web Design</td>
-                            <td>Contact Form</td>
-                            <td>May 13, 2026</td>
-                            <td><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
+                            <td data-label="Name">John Doe</td>
+                            <td data-label="Email">john@example.com</td>
+                            <td data-label="Project">Web Design</td>
+                            <td data-label="Source">Contact Form</td>
+                            <td data-label="Date">May 13, 2026</td>
+                            <td data-label="Action"><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
                         </tr>
                         <tr>
-                            <td>Sarah Smith</td>
-                            <td>sarah@tech.co</td>
-                            <td>Branding</td>
-                            <td>WhatsApp</td>
-                            <td>May 12, 2026</td>
-                            <td><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
+                            <td data-label="Name">Sarah Smith</td>
+                            <td data-label="Email">sarah@tech.co</td>
+                            <td data-label="Project">Branding</td>
+                            <td data-label="Source">WhatsApp</td>
+                            <td data-label="Date">May 12, 2026</td>
+                            <td data-label="Action"><button class="btn-help" style="width: auto; padding: 4px 10px;">Reply</button></td>
                         </tr>
                     </tbody>
                 </table>
