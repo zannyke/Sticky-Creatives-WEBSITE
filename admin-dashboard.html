@@ -807,6 +807,18 @@
             </div>
         </div>
 
+        <!-- Client Projects Detail View -->
+        <div id="client-projects-view" class="view-section">
+            <div class="header" style="margin-bottom: 2rem;">
+                <button class="btn-help" style="width: auto; padding: 0.6rem 1.2rem;" onclick="showView('clients')"><i class="fas fa-arrow-left"></i> Back to Clients</button>
+                <h2 id="detail-client-name" style="margin-left: 1.5rem;">Client Projects</h2>
+            </div>
+            
+            <div class="dashboard-grid" id="client-projects-list">
+                <!-- Projects will be injected here -->
+            </div>
+        </div>
+
         <!-- Settings View -->
         <div id="settings-view" class="view-section">
             <h2 style="margin-bottom: 1.5rem;">Agency Settings</h2>
@@ -1099,7 +1111,36 @@
         }
 
         function showClientProjects(clientName) {
-            alert("Showing all projects for: " + clientName + "\n\n1. " + clientName + " Branding\n2. " + clientName + " Web Development\n3. " + clientName + " UI Design");
+            const container = document.getElementById('client-projects-list');
+            const nameEl = document.getElementById('detail-client-name');
+            
+            nameEl.innerText = clientName + " Projects";
+            container.innerHTML = ''; // Clear previous
+            
+            const projects = [
+                { title: "Branding & Identity", date: "May 2026", status: "Live", icon: "fa-palette" },
+                { title: "E-commerce Platform", date: "Apr 2026", status: "Design", icon: "fa-code" },
+                { title: "UI/UX Optimization", date: "Mar 2026", status: "Planning", icon: "fa-layer-group" }
+            ];
+            
+            projects.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">${p.title}</span>
+                        <i class="fas ${p.icon}"></i>
+                    </div>
+                    <div class="card-value" style="font-size: 1.2rem; margin: 10px 0;">${clientName} ${p.title}</div>
+                    <div class="card-trend" style="color: var(--text-muted);">
+                        <i class="far fa-calendar"></i> ${p.date}
+                        <span class="status-badge status-delivered" style="margin-left: 10px;">${p.status}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            showView('client-projects');
         }
 
         function openCalendar() {
